@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum NKids {
+  NO
+  YES
+}
+
+enum MaritalStatus {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+  SEPARATED
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  image          String?
+  fullname       String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  gender         String?
+  password       String?
+  age            Int?
+  profilcomplete Boolean?  @default(false)
+  username       String?   @unique
+  stepCompletion Int?      @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  sentLikes      Like[]    @relation("SentLikes")
+  receivedLikes  Like[]    @relation("ReceivedLikes")
+  matches1       Match[]   @relation("User1Matches")
+  matches2       Match[]   @relation("User2Matches")
+
+  conversationIds String[] @db.VarChar(255)
+  lastActivity    DateTime @default(now())
+
+  conversations  Conversation[] @relation("UserConversations")
+  role           UserRole       @default(USER)
+  accounts       Account[]
+  userProfil     UserProfile[]
+  seenMessageIds String[]       @db.VarChar(255)
+  seenMessages   Message[]      @relation("seenMessages")
+
+  messages Message[] @relation("sentMessages")
+}
+
+//user like 
+
+model Like {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  sender     User     @relation("SentLikes", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("ReceivedLikes", fields: [receiverId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([senderId, receiverId])
+}
+
+// MATCHES
+
+model Match {
+  id        String   @id @default(cuid())
+  user1Id   String
+  user2Id   String
+  user1     User     @relation("User1Matches", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2     User     @relation("User2Matches", fields: [user2Id], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([user1Id, user2Id])
+}
+
+// Preserved field names
+
+model UserProfile {
+  id                String  @id @default(cuid())
+  height            String?
+  weight            String?
+  religion          String?
+  education         String?
+  occupation        String?
+  income            String?
+  smokinghabits     String?
+  drinkinghabits    String?
+  travelpreferences String?
+  maritalstatus     String?
+  kids              String?
+  city              String?
+  country           String?
+  profilpicture     String? @default("")
+  phonenumber       String?
+  pets              String?
+
+  // Relationship with User
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model Conversation {
+  id            String   @id @default(cuid()) @db.Text
+  createdAt     DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  name          String?
+  isGroup       Boolean?
+
+  // Preserved field names
+  messagesIds String[]  @db.VarChar(255)
+  userIds     String[]  @db.VarChar(255)
+  users       User[]    @relation("UserConversations")
+  messages    Message[]
+}
+
+model Message {
+  id        String   @id @default(cuid()) @db.Text
+  body      String?
+  createdAt DateTime @default(now())
+
+  conversationId String       @db.Text
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId String   @db.Text
+  sender   User     @relation("sentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  seenIds  String[] @db.Text
+  seen     User[]   @relation("seenMessages")
+}

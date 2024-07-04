@@ -1,0 +1,28 @@
+.card {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .percentage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: yellow;
+    padding: 5px;
+    border-radius: 50%;
+  }
+  
+  .name {
+    margin-top: auto;
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+  }
+  
