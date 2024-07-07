@@ -4,11 +4,8 @@ import React, { useCallback } from 'react'
 import { Avatar, Badge, Button } from '@nextui-org/react'
 import { cn } from '@/lib/utils'
 import { iUserProps } from '@/actions/userdata'
-import { UnlikeButton } from './unlikebutton'
 import SendIvitation from './sendIvitation'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import { User } from '@prisma/client'
 
 export type NotificationType = 'match' | 'interested' | 'liked'
 

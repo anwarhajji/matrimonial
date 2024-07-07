@@ -1,4 +1,4 @@
-import { Message, UserData } from '@/app/chat/data'
+import { Message, UserData } from '@/app/_(noUseOld)/chat/data'
 import ChatTopbar from './chat-topbar'
 import { ChatList } from './chat-list'
 import React from 'react'

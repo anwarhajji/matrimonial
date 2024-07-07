@@ -1,5 +1,3 @@
-import { PageProps } from './../.next/types/app/conversations/layout'
-import { profile } from 'console'
 import * as z from 'zod'
 
 export const LoginSchema = z.object({
@@ -7,6 +5,20 @@ export const LoginSchema = z.object({
   password: z.string().min(1, {
     message: 'Password is required'
   })
+})
+export const UserFormValidation = z.object({
+  name: z
+    .string()
+    .min(2, 'Name must be at least 2 characters')
+    .max(50, 'Name must be at most 50 characters')
+    .refine(
+      (name) => /^[a-zA-Z\s]+$/.test(name),
+      'Name must only contain letters and spaces'
+    ),
+  // email: z.string().email('Invalid email address'),
+  phone: z
+    .string()
+    .refine((phone) => /^\+\d{10,15}$/.test(phone), 'Invalid phone number')
 })
 
 export const RegisterSchema = z
@@ -98,7 +110,23 @@ export const GoogleSchema = z.object({
     .min(18, 'Minimum AGE is 18 years')
     .max(80, 'Maximum AGE is 80 years')
 })
+export const GoogleSchema1 = z.object({
+  username: z.string().min(4, {
+    message: 'Minimum of 4 characters required'
+  }),
+  fullname: z.string().min(6, {
+    message: 'Minimum of 6 characters required'
+  }),
+  gender: z.string().min(1, {
+    message: 'Please enter your gender'
+  }),
 
+  age: z.coerce
+    .number()
+    .int()
+    .min(18, 'Minimum AGE is 18 years')
+    .max(80, 'Maximum AGE is 80 years')
+})
 export const ProfilDetailsSchema = z.object({
   city: z.string().min(2, 'City is required'),
   country: z.string().min(2, 'Country is required'),

@@ -14,7 +14,7 @@ import {
   TooltipProvider
 } from '@/components/ui/tooltip'
 import { Avatar, AvatarImage } from './avatar'
-import { Message } from '@/app/chat/data'
+import { Message } from '@/app/_(noUseOld)/chat/data'
 import ConversationList from '@/app/conversations/components/ConversationList'
 import { useCallback, useEffect, useState } from 'react'
 import getConversations from '@/actions/getConversations'

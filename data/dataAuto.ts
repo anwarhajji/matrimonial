@@ -4,6 +4,42 @@ export interface AutocompleteOption {
   description: string
 }
 
+export const weightOptions: AutocompleteOption[] = [
+  { label: '40 kg', value: '40', description: '40 kg' },
+  { label: '45 kg', value: '45', description: '45 kg' },
+  { label: '50  kg', value: '50', description: '50 kg' },
+  { label: '55 kg', value: '55', description: '55 kg' },
+  { label: '60 kg', value: '60', description: '60 kg' },
+  { label: '65 kg', value: '65', description: '65 kg' },
+  { label: '70 kg', value: '70', description: '70 kg' },
+  { label: '75 kg', value: '75', description: '75 kg' },
+  { label: '80 kg', value: '80', description: '80 kg' },
+  { label: '85 kg', value: '85', description: '85 kg' },
+  { label: '90 kg', value: '90', description: '90 kg' },
+  { label: '95 kg', value: '95', description: '95 kg' },
+  { label: '100 kg', value: '100', description: '100 kg' },
+  { label: '105 kg', value: '105', description: '105 kg' },
+  { label: '110 kg', value: '110', description: '110 kg' },
+  { label: '115 kg', value: '115', description: '115 kg' },
+  { label: '120 kg', value: '120', description: '120 kg' },
+  { label: '125 kg or more', value: '125', description: '125 kg' }
+]
+
+export const heightOptions: AutocompleteOption[] = [
+  { label: '140 cm', value: '140', description: '140 cm' },
+  { label: '145 cm', value: '145', description: '145 cm' },
+  { label: '150 cm', value: '150', description: '150 cm' },
+  { label: '155 cm', value: '155', description: '155 cm' },
+  { label: '160 cm', value: '160', description: '160 cm' },
+  { label: '165 cm', value: '165', description: '165 cm' },
+  { label: '170 cm', value: '170', description: '170 cm' },
+  { label: '175 cm', value: '175', description: '175 cm' },
+  { label: '180 cm', value: '180', description: '180 cm' },
+  { label: '185 cm', value: '185', description: '185 cm' },
+  { label: '190 cm', value: '190', description: '190 cm' },
+  { label: '195 cm', value: '195', description: '195 cm' },
+  { label: '200 cm or more', value: '200', description: '200 cm' }
+]
 export const religionOptions: AutocompleteOption[] = [
   {
     label: 'Agnostic',
@@ -38,6 +74,11 @@ export const religionOptions: AutocompleteOption[] = [
 
 export const educationOptions: AutocompleteOption[] = [
   {
+    label: 'Elementary School',
+    value: 'elementary school',
+    description: 'Elementary school education'
+  },
+  {
     label: 'High School Diploma',
     value: 'high school diploma',
     description: 'A diploma awarded to students who complete high school'
@@ -70,32 +111,58 @@ export const educationOptions: AutocompleteOption[] = [
 ]
 
 export const occupationOptions: AutocompleteOption[] = [
+  { value: 'student', label: 'Student', description: 'Student' },
+  { value: 'professional', label: 'Professional', description: 'Professional' },
+  { value: 'entrepreneur', label: 'Entrepreneur', description: 'Entrepreneur' },
+  { value: 'homemaker', label: 'Homemaker', description: 'Homemaker' },
+  { value: 'retired', label: 'Retired', description: 'Retired' },
+  { value: 'unemployed', label: 'Unemployed', description: 'Unemployed' },
+  { value: 'freelancer', label: 'Freelancer', description: 'Freelancer' },
+  { value: 'artist', label: 'Artist', description: 'Artist' },
   {
-    label: 'Software Engineer',
-    value: 'software engineer',
-    description: 'A person who designs and develops software'
-  },
-  {
-    label: 'Doctor',
-    value: 'doctor',
-    description: 'A person who practices medicine'
-  },
-  {
-    label: 'Lawyer',
-    value: 'lawyer',
-    description: 'A person who practices law'
-  },
-  {
-    label: 'Teacher',
     value: 'teacher',
-    description: 'A person who educates students'
+    label: 'Teacher/Educator',
+    description: 'Teacher/Educator'
   },
-  { label: 'Artist', value: 'artist', description: 'A person who creates art' },
   {
-    label: 'Other',
-    value: 'other',
-    description: 'Another occupation not listed'
-  }
+    value: 'healthcare',
+    label: 'Healthcare Professional',
+    description: 'Healthcare Professional'
+  },
+  { value: 'engineer', label: 'Engineer', description: 'Engineer' },
+  {
+    value: 'it',
+    label: 'Information Technology (IT) Professional',
+    description: 'Information Technology (IT) Professional'
+  },
+  {
+    value: 'businessowner',
+    label: 'Business Owner',
+    description: 'Business Owner'
+  },
+  { value: 'salesperson', label: 'Salesperson', description: 'Salesperson' },
+  {
+    value: 'manager',
+    label: 'Manager/Administrator',
+    description: 'Manager/Administrator'
+  },
+  {
+    value: 'government',
+    label: 'Government Employee',
+    description: 'Government Employee'
+  },
+  {
+    value: 'lawyer',
+    label: 'Lawyer/Legal Professional',
+    description: 'Lawyer/Legal Professional'
+  },
+  {
+    value: 'accountant',
+    label: 'Accountant/Financial Professional',
+    description: 'Accountant/Financial Professional'
+  },
+  { value: 'consultant', label: 'Consultant', description: 'Consultant' },
+  { value: 'other', label: 'Other', description: 'Other' }
 ]
 
 export const incomeOptions: AutocompleteOption[] = [

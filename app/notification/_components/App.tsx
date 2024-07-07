@@ -15,7 +15,6 @@ import {
   CardFooter
 } from '@nextui-org/react'
 
-import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
 import {
   getUsersILikenomatch,

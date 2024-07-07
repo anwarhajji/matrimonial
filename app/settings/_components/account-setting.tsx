@@ -1,6 +1,5 @@
 'use client'
-import countriesStates from '@/data/countriesStates.json'
-import Sstates from '@/data/states.json'
+
 import states from '@/data/states.json'
 
 import { StateProps, type CountryProps } from '@/store/types'
@@ -15,9 +14,7 @@ import {
   SelectItem,
   Spacer
 } from '@nextui-org/react'
-import { debounce } from 'lodash' // Import debounce from lodash
 
-import { cn } from '@/lib/utils'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -43,7 +40,9 @@ import {
   occupationOptions,
   educationOptions,
   travelPreferencesOptions,
-  AutocompleteOption
+  AutocompleteOption,
+  weightOptions,
+  heightOptions
 } from '@/data/dataAuto'
 import { lowerCase, sentenceCase } from '@/store/utils'
 
@@ -92,10 +91,9 @@ const AccountSetting = () => {
   const [error, setError] = React.useState<string | undefined>('')
   const [success, setSuccess] = React.useState<string | undefined>('')
   //const [selectedValue, setSelectedValue] = React.useState('MA')
-  const [selectedCityValue, setSelectedCityValue] = React.useState<
-    string | null | undefined
-  >('')
-
+  const [cityValue, setCityValue] = React.useState<string | null | undefined>(
+    ''
+  )
   const [religion, setReligion] = React.useState<string | null | undefined>('')
   const [education, setEducation] = React.useState<string | null | undefined>(
     ''
@@ -119,51 +117,24 @@ const AccountSetting = () => {
   const [maritalStatus, setMaritalStatus] = React.useState<
     string | null | undefined
   >('')
-  /* const SD = countriesStates as StatecityProps[]
-  const S = SD.filter((state) => countriesStates.code2 === selectedValue) */
+  const [weight, setWeight] = React.useState<string | null | undefined>('')
+
+  const [height, setHeigh] = React.useState<string | null | undefined>('')
 
   const form = useForm<z.infer<typeof ProfileACCOUNTSchema>>({
     resolver: zodResolver(ProfileACCOUNTSchema),
     defaultValues: {
       country: profil?.country!,
       height: profil?.height!,
+      weight: profil?.weight!,
       city: profil?.city!,
       religion: profil?.religion!,
       occupation: profil?.occupation!
     }
   })
 
-  /* const handleSelectionChange = useCallback(
-    debounce((item) => {
-      let selectedCity = ''
-
-      if (item) selectedCity = item.toString()!
-      console.log('Selected City:', selectedCity)
-      console.log('Previous City Value:', selectedCityValue)
-
-      if (selectedCity !== selectedCityValue) {
-        console.log('Updating state to:', selectedCity)
-        setSelectedCityValue(selectedCity)
-        form.setValue('city', selectedCity, { shouldValidate: true })
-      }
-    }, 300), // Adjust debounce delay as necessary
-    [selectedCityValue, form]
-  ) */
-  console.log('Rendering component with selectedCityValue:', selectedCityValue)
   console.log('country value:', countryValue)
-  /*   const handleSelectionChange = useCallback(
-    (value: any) => {
-      console.log('onSelectionChange called')
-      const selectednewcity = value?.toString()
-      if (selectednewcity) {
-        console.log('Updating selectedCityValue')
-        setSelectedCityValue(selectednewcity!)
-        console.log('Updating form value')
-        form.setValue('city', selectednewcity)
-      }
-    },
-    [setSelectedCityValue, form]
-  ) */
+
   const {
     data: profileData,
     error: profileError,
@@ -177,6 +148,7 @@ const AccountSetting = () => {
     if (profileData) {
       setProfile(profileData)
       setCountryValue(profileData.country!)
+      setCityValue(profileData.city!)
       setStateValue(profileData.city!)
       setOccupation2(profileData.occupation!)
       setOccupation(profileData.occupation!)
@@ -187,6 +159,8 @@ const AccountSetting = () => {
       setDrinkingHabits(profileData.drinkinghabits!)
       setTravelPreferences(profileData.travelpreferences!)
       setMaritalStatus(profileData.maritalstatus!)
+      setWeight(profileData.weight!)
+      setHeigh(profileData.height!)
     }
     if (!isProfileLoading) {
       setLoading(false)
@@ -232,32 +206,6 @@ const AccountSetting = () => {
     latitude: string
     longitude: string
   }
-  //=====================================================
-  /*   const ci = Sstates as City[] // assume this is your JSON data
-
-  const getCitiesForCountry = (countryCode: string): City[] => {
-    return ci.filter((city) => city.country_code === countryCode)
-  } */
-
-  // const SelectedCi = getCitiesForCountry(selectedValue)
-  //=====================================================
-
-  // cities array
-  /* let cities = [] as StateProps2[]
-
-  const countri = countriesStates.find(
-    (countri) => countri.code2 === selectedValue
-  )
-  if (countri) {
-    cities = countri.states.map((state) => ({
-      code: state.code,
-      name: state.name
-    }))
-    console.log('Cities', cities)
-  } else {
-    console.log('Country not found')
-  } */
-  //=====================================================
 
   const handleReligionChange = (value: AutocompleteOption['value']) => {
     if (value) {
@@ -265,14 +213,7 @@ const AccountSetting = () => {
       form.setValue('religion', value)
     }
   }
-  const handleCityChange = (value: StateProps['name']) => {
-    if (value) {
-      setStateValue(value)
-      console.log('Selected City value:', value)
-      //setSelectedCityValue(value)
-      form.setValue('city', value)
-    }
-  }
+
   const handleMaritalStatusChange = (value: AutocompleteOption['value']) => {
     if (value) {
       setMaritalStatus(value)
@@ -323,7 +264,19 @@ const AccountSetting = () => {
       form.setValue('travelpreferences', value)
     }
   }
+  const hadleWeightChange = (value: AutocompleteOption['value']) => {
+    if (value) {
+      setWeight(value)
+      form.setValue('weight', value)
+    }
+  }
 
+  const hadleHeightChange = (value: AutocompleteOption['value']) => {
+    if (value) {
+      setHeigh(value)
+      form.setValue('height', value)
+    }
+  }
   return (
     <div
       /* ref={ref} */ className=" gap-3 bg-black p-2 overflow-y-auto max-w-xl pb-20  "
@@ -414,7 +367,7 @@ const AccountSetting = () => {
                           />
                         }
                         //textValue={profil?.country!}
-                        value={country.iso2}
+                        value={country.name}
                       >
                         {country.name}
                       </AutocompleteItem>
@@ -423,34 +376,46 @@ const AccountSetting = () => {
                 )
               }}
             />
+
             <FormField
               control={form.control}
               name="city"
               render={({ field }) => {
                 const { error } = useFormField()
                 return (
-                  <Autocomplete
-                    defaultItems={S}
-                    defaultSelectedKey={stateValue!}
-                    label="CITY"
-                    labelPlacement="outside"
-                    placeholder="Select CITY"
-                    showScrollIndicators={false}
-                    selectedKey={stateValue!}
-                    //inputValue={inputValue}
-
-                    onSelectionChange={handleCityChange}
+                  <Input
                     {...field}
-                  >
-                    {(city) => (
-                      <AutocompleteItem key={city.id} value={city.name}>
-                        {city.name}
-                      </AutocompleteItem>
-                    )}
-                  </Autocomplete>
+                    label="City"
+                    labelPlacement="outside"
+                    defaultValue={cityValue}
+                    placeholder="Enter your city"
+                    type="text"
+                    autoComplete="address-level2"
+                    name="city"
+                    classNames={{
+                      input: [
+                        'bg-[#0f0f11]',
+                        'text-white',
+                        'placeholder:text-gray-400'
+                      ],
+                      innerWrapper: 'bg-[#0f0f11]',
+                      inputWrapper: [
+                        'shadow-xl',
+                        'bg-[#0f0f11]',
+                        'hover:bg-[#0f0f11]',
+                        'group-data-[focused=true]:bg-[#0f0f11]',
+                        '!cursor-text',
+                        'border-[#27272a]'
+                      ]
+                    }}
+                    // You can add error handling here
+                    isInvalid={!!error}
+                    errorMessage={error?.message}
+                  />
                 )
               }}
             />
+
             {/* City */}
             {/* 
             <FormField
@@ -484,6 +449,66 @@ const AccountSetting = () => {
               }}
             /> */}
           </div>
+          {/*weight*/}
+          <Spacer y={2} />
+          <FormField
+            control={form.control}
+            name="weight"
+            render={({ field }) => {
+              const { error } = useFormField()
+              return (
+                <Autocomplete
+                  defaultItems={weightOptions}
+                  defaultSelectedKey={weight!}
+                  label="Weight"
+                  labelPlacement="outside"
+                  placeholder="Select weight"
+                  showScrollIndicators={false}
+                  selectedKey={weight!}
+                  //inputValue={inputValue}
+
+                  onSelectionChange={hadleWeightChange}
+                  {...field}
+                >
+                  {(item) => (
+                    <AutocompleteItem key={item.value} value={item.value}>
+                      {item.label}
+                    </AutocompleteItem>
+                  )}
+                </Autocomplete>
+              )
+            }}
+          />
+          <Spacer y={2} />
+          {/* Height */}
+          <FormField
+            control={form.control}
+            name="height"
+            render={({ field }) => {
+              const { error } = useFormField()
+              return (
+                <Autocomplete
+                  defaultItems={heightOptions}
+                  defaultSelectedKey={height!}
+                  label="Height"
+                  labelPlacement="outside"
+                  placeholder="Select height"
+                  showScrollIndicators={false}
+                  selectedKey={height!}
+                  //inputValue={inputValue}
+
+                  onSelectionChange={hadleHeightChange}
+                  {...field}
+                >
+                  {(item) => (
+                    <AutocompleteItem key={item.value} value={item.value}>
+                      {item.label}
+                    </AutocompleteItem>
+                  )}
+                </Autocomplete>
+              )
+            }}
+          />
           <Spacer y={2} />
           {/* Religion */}
           <FormField

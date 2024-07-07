@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, AvatarImage } from '../ui/avatar'
-import { UserData } from '@/app/chat/data'
+import { UserData } from '@/app/_(noUseOld)/chat/data'
 import { Info, Phone, Video } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'

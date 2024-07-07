@@ -56,7 +56,7 @@ export const registeractionstep1 = async (
       fullname: updatedUser.fullname,
     },
   }); */
-  redirect('/settings')
+  //redirect('/settings')
 
   return { success: 'registeration success Updated!' }
 }
