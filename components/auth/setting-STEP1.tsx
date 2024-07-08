@@ -56,7 +56,7 @@ export const SettigStep1 = ({
   }
 
   return (
-    <div className="flex w-full  max-w-sm flex-col gap-4 rounded-large bg-content1 px-8 pb-10 pt-6 shadow-small">
+    <div className="flex w-full   flex-col gap-4 rounded-large bg-content1 px-8 pb-10 pt-6 shadow-small">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

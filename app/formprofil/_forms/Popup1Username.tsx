@@ -104,7 +104,10 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -119,7 +122,10 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a gender" />
+                    <SelectValue
+                      className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                      placeholder="Select a gender"
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -138,7 +144,10 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -151,7 +160,11 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
             <FormItem>
               <FormLabel>Age</FormLabel>
               <FormControl>
-                <Input {...field} type="number" />
+                <Input
+                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  {...field}
+                  type="number"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

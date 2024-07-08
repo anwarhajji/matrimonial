@@ -304,14 +304,6 @@ const AccountSetting = () => {
     <div className=" gap-3 bg-black p-2 overflow-y-auto max-w-xl pb-20  ">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <p className="text-default-500 text-small">
-            <Avatar
-              alt="Country Flag"
-              className="h-6 w-6"
-              src={`https://flagcdn.com/${profileData?.country!.toLowerCase()}.svg`}
-            />
-          </p>
-          <Spacer y={2} />
           {/* Timezone */}
           {/* <section>
             <div>
@@ -420,14 +412,14 @@ const AccountSetting = () => {
                           <span>
                             {countryValue ? (
                               <div className="flex items-end gap-2">
-                                <span>
-                                  {
-                                    C.find(
-                                      (country) =>
-                                        lowerCase(country.name) === countryValue
-                                    )?.emoji
-                                  }
-                                </span>
+                                <Avatar
+                                  alt="Country Flag"
+                                  className="h-6 w-6"
+                                  src={`https://flagcdn.com/${C.find(
+                                    (country) =>
+                                      lowerCase(country.name) === countryValue
+                                  )?.iso2.toLowerCase()}.svg`}
+                                />
                                 <span>
                                   {
                                     C.find(
@@ -470,7 +462,11 @@ const AccountSetting = () => {
                                     className="flex cursor-pointer items-center justify-between text-xs hover:!bg-[#27272a] hover:!text-white"
                                   >
                                     <div className="flex items-end gap-2">
-                                      <span>{country.emoji}</span>
+                                      <Avatar
+                                        alt="Country Flag"
+                                        className="h-6 w-6"
+                                        src={`https://flagcdn.com/${country.iso2.toLowerCase()}.svg`}
+                                      />
                                       <span className="">{country.name}</span>
                                     </div>
                                     <Check

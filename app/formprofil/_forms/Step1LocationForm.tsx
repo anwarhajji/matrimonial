@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Button, Input, Spacer } from '@nextui-org/react'
+import { Avatar, Button, Input, Spacer } from '@nextui-org/react'
 import {
   Form,
   FormField,
@@ -42,14 +42,23 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { heightOptions, weightOptions } from '@/data/dataAuto'
+import {
+  heightOptions,
+  occupationOptions,
+  weightOptions
+} from '@/data/dataAuto'
+import SubmitButton from './SubmitButton'
+import { PhoneInput } from '@/components/phone-input'
+import useStepStore from '@/store/useStepStore'
 
 type Input = z.infer<typeof Step1Schema>
 
 interface Popup1Props {
   onOpenChange: (open: boolean) => void
 }
+
 const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
+  const { setStep } = useStepStore()
   const {
     countryValue,
     setCountryValue,
@@ -57,21 +66,27 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
     setOpenCountryDropdown
   } = useDropdownStore()
   const [cityValue, setCityValue] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const form = useForm({
     resolver: zodResolver(Step1Schema),
     defaultValues: {
       country: countryValue,
       city: cityValue,
-      height: '',
-      weight: ''
+      phonenumber: '',
+      occupation: ''
     }
   })
+
   const C = countries as CountryProps[]
   function onSubmit(data: Input) {
+    setIsLoading(true)
+
     //console.log('submititttttttttttt in on sumit:    ', data)
-    actionStep1(data)
-    // setStep(2)
+    actionStep1(data).then(() => {
+      setIsLoading(false)
+    })
+    setStep(2)
     //router.push('/step2')
 
     //alert(JSON.stringify(data, null, 4))
@@ -80,6 +95,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
     })
 
     setTimeout(() => onOpenChange(false), 2000)
+
     return { success: 'success form' }
 
     // redirect('/')
@@ -90,10 +106,38 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
+          name="occupation"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>your occupation or work </FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your education level" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className="bg-slate-700">
+                  {occupationOptions.map((range) => (
+                    <SelectItem key={range.value} value={range.value}>
+                      {range.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                chose your occupation to help the algorithm find your perfect
+                match{' '}
+              </FormDescription>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Country</FormLabel>
+              <FormLabel>Your Country</FormLabel>
               <FormControl>
                 <Popover
                   open={openCountryDropdown}
@@ -101,7 +145,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                 >
                   <PopoverTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="solid"
                       role="combobox"
                       aria-expanded={openCountryDropdown}
                       className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
@@ -109,14 +153,14 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       <span>
                         {countryValue ? (
                           <div className="flex items-end gap-2">
-                            <span>
-                              {
-                                C.find(
-                                  (country) =>
-                                    lowerCase(country.name) === countryValue
-                                )?.emoji
-                              }
-                            </span>
+                            <Avatar
+                              alt="Country Flag"
+                              className="h-6 w-6"
+                              src={`https://flagcdn.com/${C.find(
+                                (country) =>
+                                  lowerCase(country.name) === countryValue
+                              )?.iso2.toLowerCase()}.svg`}
+                            />
                             <span>
                               {
                                 C.find(
@@ -159,7 +203,11 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                                 className="flex cursor-pointer items-center justify-between text-xs hover:!bg-[#27272a] hover:!text-white"
                               >
                                 <div className="flex items-end gap-2">
-                                  <span>{country.emoji}</span>
+                                  <Avatar
+                                    alt="Country Flag"
+                                    className="h-6 w-6"
+                                    src={`https://flagcdn.com/${country.iso2.toLowerCase()}.svg`}
+                                  />
                                   <span className="">{country.name}</span>
                                 </div>
                                 <Check
@@ -192,7 +240,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>City</FormLabel>
+              <FormLabel> Your City</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -206,66 +254,30 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
             </FormItem>
           )}
         />
+
+        {/* phonenumber */}
         <FormField
           control={form.control}
-          name="height"
+          name="phonenumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>your Height</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select the interval of height" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-slate-700">
-                  {heightOptions.map((range) => (
-                    <SelectItem key={range.value} value={range.value}>
-                      {range.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <FormLabel>Phone number</FormLabel>
+              <FormControl>
+                <PhoneInput className="bg-slate-900" {...field} />
+              </FormControl>
               <FormDescription>
-                chose your heigh to help the algorithm find your perfect match{' '}
+                your phone number is confidential the others will not be able to
+                see it
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
-        {/* weight */}
-        <FormField
-          control={form.control}
-          name="weight"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>your Weight</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select the interval of weight" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-slate-700">
-                  {weightOptions.map((range) => (
-                    <SelectItem key={range.value} value={range.value}>
-                      {range.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                chose your weight to help the algorithm find your perfect match{' '}
-              </FormDescription>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
+        {/* occupation*/}
+
         <Spacer y={2} />
 
-        <Button type="submit" className="bg-blue-500 text-white">
-          Update Location
-        </Button>
+        <SubmitButton isLoading={isLoading}>Send</SubmitButton>
       </form>
     </Form>
   )

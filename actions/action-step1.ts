@@ -16,8 +16,8 @@ export const actionStep1 = async (values: z.infer<typeof Step1Schema>) => {
   }
 
   const {
-    height,
-    weight,
+    phonenumber,
+    occupation,
 
     city,
     country
@@ -47,15 +47,15 @@ export const actionStep1 = async (values: z.infer<typeof Step1Schema>) => {
         userId: userid
       },
       update: {
-        height,
-        weight,
+        phonenumber,
+        occupation,
         city,
         country
       },
       create: {
         userId: userid,
-        height,
-        weight,
+        phonenumber,
+        occupation,
         city,
         country
       }

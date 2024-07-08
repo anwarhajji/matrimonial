@@ -44,10 +44,13 @@ import useStepStore from '@/store/useStepStore'
 import { toast } from 'sonner'
 import {
   educationOptions,
+  heightOptions,
   incomeOptions,
   occupationOptions,
-  smokingHabitsOptions
+  smokingHabitsOptions,
+  weightOptions
 } from '@/data/dataAuto'
+import SubmitButton from './SubmitButton'
 
 interface CountryDropdownProps {
   disabled?: boolean
@@ -62,27 +65,34 @@ interface Popup1Props {
 }
 
 const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
+  const [isLoading, setIsLoading] = React.useState(false)
+
   const { setStep } = useStepStore()
   const form = useForm<Input>({
     resolver: zodResolver(Step2Schema),
     defaultValues: {
+      height: '',
+      weight: '',
       education: '',
-      occupation: '',
-      income: '',
-      smokinghabits: ''
+      income: ''
+      //smokinghabits: ''
     }
   })
 
   function onSubmit(data: Input) {
+    setIsLoading(true)
+
     console.log('submititttttttttttt in on sumit:    ', data)
-    actionStep2(data)
+    actionStep2(data).then(() => {
+      setIsLoading(false)
+    })
     setStep(3)
 
     toast.success('Professional INFOS UPDATED SUCCESSFULLY', {
       description: ' CONTINUE WITH STEP 3'
     })
 
-    setTimeout(() => onOpenChange(false), 3000)
+    setTimeout(() => onOpenChange(false), 2000)
     return { success: 'success form' }
   }
 
@@ -93,6 +103,71 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="relative space-y-4 overflow-x-hidden"
         >
+          {/* heigh*/}
+
+          <FormField
+            control={form.control}
+            name="height"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>your Height (in cm)</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select the interval of height" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-slate-700">
+                    {heightOptions.map((range) => (
+                      <SelectItem key={range.value} value={range.value}>
+                        {range.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  chose your heigh to help the algorithm find your perfect match{' '}
+                </FormDescription>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+          {/* weight */}
+          <FormField
+            control={form.control}
+            name="weight"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Your Weight (in kg)</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select the interval of weight" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-slate-700">
+                    {weightOptions.map((range) => (
+                      <SelectItem key={range.value} value={range.value}>
+                        {range.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  chose your weight to help the algorithm find your perfect
+                  match{' '}
+                </FormDescription>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
+
           {/* education*/}
 
           <FormField
@@ -121,40 +196,6 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
                 <FormDescription>
                   chose your education level to help the algorithm find your
                   perfect match{' '}
-                </FormDescription>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />
-
-          {/* occupation*/}
-
-          <FormField
-            control={form.control}
-            name="occupation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>your occupation or work </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your education level" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-slate-700">
-                    {occupationOptions.map((range) => (
-                      <SelectItem key={range.value} value={range.value}>
-                        {range.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  chose your occupation to help the algorithm find your perfect
-                  match{' '}
                 </FormDescription>
                 <FormMessage className="text-red-500" />
               </FormItem>
@@ -194,57 +235,7 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
             )}
           />
 
-          {/* smokinghabits */}
-          <FormField
-            control={form.control}
-            name="smokinghabits"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> do you smoke ? </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="do you smoke ?" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-slate-700">
-                    {smokingHabitsOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                  {/* <SelectContent className="bg-slate-700">
-                    {' '}
-                    <SelectItem value="nonSmoker">Non-Smoker</SelectItem>
-                    <SelectItem value="occasionalSmoker">
-                      Occasional Smoker
-                    </SelectItem>
-                    <SelectItem value="regularSmoker">
-                      Regular Smoker
-                    </SelectItem>
-                  </SelectContent> */}
-                </Select>
-                <FormDescription>
-                  chose do you smoke ? smoking habits{' '}
-                </FormDescription>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />
-          <Button
-            // disabled={isPending}
-            type="submit"
-            className="p-[3px] relative font-semibold w-full bg-transparent"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-[7.5px] w-full" />
-            <div className="px-8 py-2  w-full bg-zinc-800 rounded-[5px] relative group transition duration-200 text-white hover:bg-transparent text-lg">
-              Next step &rarr;
-            </div>
-          </Button>
+          <SubmitButton isLoading={isLoading}>Send</SubmitButton>
         </form>
       </Form>
     </div>

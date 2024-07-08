@@ -121,8 +121,8 @@ const ProfileSetting = () => {
       {/*  */}
       <Spacer y={2} />
       {/* Location */}
-      <Card className="mt-1 bg-default-100" shadow="none">
-        <CardBody className="w-full">
+      <Card className="mt-1 bg-default-100 " shadow="none">
+        <CardBody className="">
           <div className="flex items-center w-full ">
             <SettigStep1 user={user!} Uprofil={profil!} />
           </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import type { CardProps } from '@nextui-org/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Card,
   CardBody,
@@ -9,115 +9,80 @@ import {
   Listbox,
   ListboxItem,
   Progress,
-  useDisclosure,
-  Input,
-  Textarea,
-  Button,
-  Spacer
+  useDisclosure
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { UserFormValidation } from '@/schemas'
-import { z } from 'zod'
 import ModalReview2 from './modal-pop'
-import Popup1 from '../_forms/Popup1Username'
-import { PatientForm } from '../_forms/POPUP2'
-import Step2 from '../_forms/step2-form'
-import Step1 from '../_forms/step1-form'
-import Step3 from '../_forms/step3-form'
 
-import Step4 from '../_forms/step4-form'
-import LocationForm from '../_forms/LocationForm'
-import ModalReview from './modal-form'
+import LocationForm from '../_forms/Step1LocationForm'
+import Step2 from '../_forms/step2Education-form'
+import Step3 from '../_forms/step3Habits-form'
+import Step4 from '../_forms/step4Family-form'
+import useStepStore from '@/store/useStepStore'
+import { getUserSteps } from '@/actions/userdata'
+import Popup1 from '../_forms/Popup1Username'
 export default function ProfilsForm(props: CardProps) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
+  const { setStep, step } = useStepStore()
+  const [currentState, setCurrentState] = useState(step)
+
+  useEffect(() => {
+    getUserSteps().then((completed) => {
+      console.log('step', step)
+      console.log(completed)
+      if (completed !== null && completed !== undefined) {
+        setCurrentState(completed)
+        console.log('current', currentState)
+
+        if (completed > step) setStep(completed)
+      }
+    })
+  }, [getUserSteps])
 
   const items = [
     {
       key: 'personal-details',
       icon: 'solar:user-bold',
       title: 'Personal Details',
+      description: 'creat your profile',
+      isCompleted: step > 1,
+      formContent: <Popup1 onOpenChange={onOpenChange} />
+      // <LocationForm onOpenChange={onOpenChange} />
+    },
+
+    {
+      key: 'personal-infos',
+      icon: 'solar:user-bold',
+      title: 'Personal infos',
       description: 'Tell us about yourself',
-      isCompleted: false,
-      formContent: (
-        <LocationForm onOpenChange={onOpenChange} />
-        /*         <Step1 onOpenChange={onOpenChange} />
-         */
-        /*  <>
-          <Input
-            label="Name"
-            placeholder="Enter your name"
-            startContent={<Icon icon="solar:user-bold" />}
-          />
-          <Input
-            label="Full Name"
-            placeholder="Enter your full name"
-            startContent={<Icon icon="solar:user-bold" />}
-          />
-        </> */
-      )
+      isCompleted: step >= 2,
+      formContent: <LocationForm onOpenChange={onOpenChange} />
     },
     {
-      key: 'add-your-team',
+      key: 'Education and Career Information',
       icon: 'solar:user-plus-linear',
-      title: 'Add your team',
-      description: 'Invite your team members to your organization.',
-      isCompleted: false,
+      title: 'Academic & Lifestyle ',
+      description:
+        'Tell Us About Your Education, Occupation, Income, and Lifestyle Choices',
+      isCompleted: step >= 3,
       formContent: <Step2 onOpenChange={onOpenChange} />
     },
     {
-      key: 'add-share-holders',
+      key: 'Personal Preferences & Beliefs ',
       icon: 'solar:users-group-rounded-linear',
-      title: 'Add shareholders',
-      description:
-        'Add your shareholders to your organization and captable so they can view their holdings.',
-      isCompleted: false,
-      formContent: (
-        <>
-          <Step3 onOpenChange={onOpenChange} />
-
-          {/* <Input
-            label="Title"
-            placeholder="Enter the title"
-            startContent={<Icon icon="solar:pen-bold" />}
-          />
-          <Textarea
-            disableAutosize
-            classNames={{
-              input: 'h-32 resize-y !transition-none'
-            }}
-            label="Description"
-            placeholder="Enter the description"
-          /> */}
-        </>
-      )
+      title: 'Personal Preferences  ',
+      description: 'Share Your Travel Habits,  and Marital Status..',
+      isCompleted: step >= 4,
+      formContent: <Step3 onOpenChange={onOpenChange} />
     },
     {
-      key: 'add-valuations',
+      key: 'Family Information',
       icon: 'solar:graph-up-linear',
-      title: 'Add valuations',
+      title: 'Family Information',
       description:
-        'Add your company valuations to your captable to help track your progress.',
-      isCompleted: false,
-      formContent: (
-        <Step4 onOpenChange={onOpenChange} />
-        /* <>
-          <Input
-            label="Valuation"
-            placeholder="Enter the valuation"
-            startContent={<Icon icon="solar:graph-up-bold" />}
-          />
-          <Textarea
-            disableAutosize
-            classNames={{
-              input: 'h-32 resize-y !transition-none'
-            }}
-            label="Valuation Description"
-            placeholder="Enter the valuation description"
-          />
-        </> */
-      )
+        'Complete the Form with Additional Information and Contact Details',
+      isCompleted: step >= 5,
+      formContent: <Step4 onOpenChange={onOpenChange} />
     }
   ]
 
@@ -168,7 +133,11 @@ export default function ProfilsForm(props: CardProps) {
             <ListboxItem
               key={item.key}
               classNames={{
-                base: 'w-full px-2 md:px-4 min-h-[70px] gap-3',
+                base: `w-full px-2 md:px-4 min-h-[70px] gap-3 ${
+                  items.indexOf(item) + 1 > step
+                    ? 'opacity-30 cursor-not-allowed pointer-events-none'
+                    : ''
+                }`,
                 title: 'text-medium font-medium',
                 description: 'text-small',
                 selected: item.isCompleted ? 'pointer-events-none' : ''
@@ -184,7 +153,7 @@ export default function ProfilsForm(props: CardProps) {
                     />
                   ) : (
                     <Icon
-                      className="text-default-400"
+                      className="text-White-200"
                       icon="solar:round-alt-arrow-right-bold"
                       width={30}
                     />
@@ -194,13 +163,14 @@ export default function ProfilsForm(props: CardProps) {
               startContent={
                 <div className="item-center flex rounded-medium border border-divider p-2">
                   <Icon
-                    className="text-secondary"
+                    className="text-white/60 hover:text-primary-400 "
                     icon={item.icon}
                     width={24}
                   />
                 </div>
               }
               title={item.title}
+              //isDisabled={items.indexOf(item) + 1 > step}
             />
           )}
         </Listbox>

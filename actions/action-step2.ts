@@ -15,7 +15,7 @@ export const actionStep2 = async (values: z.infer<typeof Step2Schema>) => {
     return { error: 'Invalid fields!' }
   }
 
-  const { education, occupation, income, smokinghabits } = validatedFields.data
+  const { education, height, weight, income } = validatedFields.data
 
   //const existingUser = await getUserByEmail(email);
 
@@ -38,7 +38,7 @@ export const actionStep2 = async (values: z.infer<typeof Step2Schema>) => {
   await db.$transaction([
     db.userProfile.update({
       where: { userId: userid },
-      data: { education, occupation, income, smokinghabits }
+      data: { education, income, height, weight }
     }),
     db.user.update({
       where: { id: userid },

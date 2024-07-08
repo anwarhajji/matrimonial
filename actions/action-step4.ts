@@ -6,7 +6,6 @@ import { getUserByEmail, getUserById } from '@/data/user'
 import * as z from 'zod'
 import { Step4Schema } from '@/schemas'
 import { currentUser } from '@/lib/auth'
-import { permanentRedirect, redirect } from 'next/navigation'
 
 export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
   const validatedFields = Step4Schema.safeParse(values)
@@ -15,7 +14,7 @@ export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
     return { error: 'Invalid fields!' }
   }
 
-  const { kids, pets, phonenumber } = validatedFields.data
+  const { kids, pets, maritalstatus } = validatedFields.data
 
   //const existingUser = await getUserByEmail(email);
 
@@ -39,7 +38,7 @@ export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
     await db.$transaction([
       db.userProfile.update({
         where: { userId: userid },
-        data: { phonenumber, pets, kids }
+        data: { maritalstatus, pets, kids }
       }),
       db.user.update({
         where: { id: userid },
@@ -48,7 +47,7 @@ export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
     ])
 
     //permanentRedirect(`/matches`) // Navigate to the new user profile
-    redirect(`/matches`)
+    //redirect(`/matches`)
     return { success: true }
   } catch (error) {
     console.log(error)

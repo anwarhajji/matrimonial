@@ -1,5 +1,7 @@
 'use client'
 
+import { PhoneInput, getPhoneData } from '@/components/phone-input'
+
 import { Inter } from 'next/font/google'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,6 +13,7 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
+import { motion } from 'framer-motion'
 import {
   Card,
   CardContent,
@@ -32,16 +35,12 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
-
-import { Step3Schema } from '@/schemas'
+import { Step4Schema } from '@/schemas'
 //import {actionprofil} from "@/actions/action-profil-form";
 import { redirect } from 'next/navigation'
 
-//POPOVER 1
-
+import { actionStep4 } from '@/actions/action-step4'
 import useStepStore from '@/store/useStepStore'
-
-import { actionStep3 } from '@/actions/action-step3'
 import { toast } from 'sonner'
 
 interface CountryDropdownProps {
@@ -51,31 +50,32 @@ interface CountryDropdownProps {
 //POPOVER FIN
 
 const inter = Inter({ subsets: ['latin'] })
-type Input = z.infer<typeof Step3Schema>
+type Input = z.infer<typeof Step4Schema>
 
 interface Popup1Props {
   onOpenChange: (open: boolean) => void
 }
-const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
+const Step4: React.FC<Popup1Props> = ({ onOpenChange }) => {
   const { setStep } = useStepStore()
 
   const form = useForm<Input>({
-    resolver: zodResolver(Step3Schema),
+    resolver: zodResolver(Step4Schema),
     defaultValues: {
-      drinkinghabits: '',
-      religion: '',
-      travelpreferences: '',
+      kids: '',
+      pets: '',
       maritalstatus: ''
     }
   })
 
   function onSubmit(data: Input) {
     console.log('submititttttttttttt in on sumit:    ', data)
-    actionStep3(data)
-    setStep(4)
-    toast.success('Lifestyle Preferences UPDATED SUCCESSFULLY', {
-      description: ' CONTINUE WITH STEP 4'
+    actionStep4(data)
+    setStep(5)
+
+    toast.success('Additional Details UPDATED SUCCESSFULLY', {
+      description: ' PROFIL INFOS COMPLETED SUCCESSFULLY'
     })
+
     setTimeout(() => onOpenChange(false), 2000)
 
     return { success: 'success form' }
@@ -87,90 +87,52 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="relative space-y-4 overflow-x-hidden"
       >
-        {/* travel preference */}
+        {/* kids */}
         <FormField
           control={form.control}
-          name="travelpreferences"
+          name="kids"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> what is your travel preference ?</FormLabel>
+              <FormLabel>do you have kids</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your travel preferences " />
+                    <SelectValue placeholder="do you have kids" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="beach">Beach</SelectItem>
-                  <SelectItem value="mountains">Mountains</SelectItem>
-                  <SelectItem value="city">City</SelectItem>
-                  <SelectItem value="countryside">Countryside</SelectItem>
-                  <SelectItem value="adventure">Adventure</SelectItem>
-                  <SelectItem value="cultural">Cultural</SelectItem>
-                  <SelectItem value="historical">Historical</SelectItem>
-                  <SelectItem value="relaxing">Relaxing</SelectItem>
-                  <SelectItem value="solo">Solo Travel</SelectItem>
-                  <SelectItem value="group">Group Travel</SelectItem>
+                  <SelectItem value="NO"> NO</SelectItem>
+                  <SelectItem value="YES">YES </SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>
-                chose your travel preference details{' '}
-              </FormDescription>
+              <FormDescription>Select YES if you have kids</FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
-
-        {/* drinkinghabits */}
+        {/* pets */}
         <FormField
           control={form.control}
-          name="drinkinghabits"
+          name="pets"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> do you drink ? </FormLabel>
+              <FormLabel> do you have any pet ?</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="do you drink ?" />
+                    <SelectValue placeholder="do you have any pet ?" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
                   {' '}
-                  <SelectItem value="nonDrinker">Non-Drinker</SelectItem>
-                  <SelectItem value="socialDrinker">Social Drinker</SelectItem>
-                  <SelectItem value="regularDrinker">
-                    Regular Drinker
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                chose do you smoke ? smoking habits{' '}
-              </FormDescription>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-
-        {/* religion */}
-        <FormField
-          control={form.control}
-          name="religion"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Religion</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select religion details" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="none">No Religion</SelectItem>
-                  <SelectItem value="islam">Islam</SelectItem>
-                  <SelectItem value="practicing">Practicing Muslim</SelectItem>
-                  <SelectItem value="other">Other (Specify)</SelectItem>
+                  <SelectItem value="none">No, I dont have pets</SelectItem>
+                  <SelectItem value="dontlike">I dont like animals</SelectItem>
+                  <SelectItem value="dogs">Dogs</SelectItem>
+                  <SelectItem value="cats">Cats</SelectItem>
+                  <SelectItem value="birds">Birds</SelectItem>
+                  <SelectItem value="fish">Fish</SelectItem>
+                  <SelectItem value="reptiles">Reptiles</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>chose your religion details </FormDescription>
@@ -225,4 +187,4 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
     </Form>
   )
 }
-export default Step3
+export default Step4

@@ -148,26 +148,26 @@ export const ProfilDetailsSchema = z.object({
 export const Step1Schema = z.object({
   city: z.string().min(2, 'City is required'),
   country: z.string().min(2, 'Country is required'),
-  height: z.string().min(2, 'Height is required'),
-  weight: z.string().min(2, 'Weight is required')
+  phonenumber: z.string().min(10, 'Phone number is required'),
+  occupation: z.string().min(1, 'Occupation is required')
 })
 
 export const Step2Schema = z.object({
+  height: z.string().min(2, 'Height is required'),
+  weight: z.string().min(2, 'Weight is required'),
   education: z.string().min(1, 'Education or qualification is required'),
-  occupation: z.string().min(1, 'Occupation is required'),
-  income: z.string().min(2, 'Income details are required'),
-  smokinghabits: z.string().min(2, 'Smoking habits are required')
+  income: z.string().min(2, 'Income details are required')
 })
 
 export const Step3Schema = z.object({
   drinkinghabits: z.string().min(3, 'Drinking habits are required'),
   religion: z.string().min(3, 'Religion is required'),
   travelpreferences: z.string().min(3, 'Travel preferences are required'),
-  maritalstatus: z.string().min(3, 'Marital status is required')
+  smokinghabits: z.string().min(2, 'Smoking habits are required')
 })
 
 export const Step4Schema = z.object({
   kids: z.string().min(2, 'Details about kids are required'),
   pets: z.string().min(3, 'Details about pets are required'),
-  phonenumber: z.string().min(10, 'Phone number is required')
+  maritalstatus: z.string().min(3, 'Marital status is required')
 })
