@@ -1,9 +1,23 @@
 'use client'
 
+import { useDropdownStore } from '@/store/dropdown'
+import { PopoverTrigger, PopoverContent } from '@/components/ui/popover'
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem
+} from '@/components/ui/command'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Check } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { countries } from '@/app/settings/_components/data/countries'
+
 import states from '@/data/states.json'
 
 import { StateProps, type CountryProps } from '@/store/types'
-import { useDropdownStore } from '@/store/dropdown'
 import {
   Autocomplete,
   AutocompleteItem,
@@ -22,11 +36,18 @@ import { z } from 'zod'
 import { useCurrentUser } from '@/hooks/user-current-user'
 import { ProfileACCOUNTSchema } from '@/schemas'
 import { ActionAccoutUser } from '@/actions/settingAccount'
-import { Form, FormField, useFormField } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField
+} from '@/components/ui/form'
 import { useQuery } from '@tanstack/react-query'
 import { UserProfile } from '@prisma/client'
 import { getUserProfileById } from '@/data/user'
-import { countries } from '../_components/data/countries'
 import { useEffect } from 'react'
 import { useDebounce } from '@/hooks/use-debounce'
 import React from 'react'
@@ -45,6 +66,8 @@ import {
   heightOptions
 } from '@/data/dataAuto'
 import { lowerCase, sentenceCase } from '@/store/utils'
+import { Popover } from '@/components/ui/popover'
+import { ChevronsUpDown } from 'lucide-react'
 
 interface AccountSettingCardProps {
   className?: string
@@ -278,9 +301,7 @@ const AccountSetting = () => {
     }
   }
   return (
-    <div
-      /* ref={ref} */ className=" gap-3 bg-black p-2 overflow-y-auto max-w-xl pb-20  "
-    >
+    <div className=" gap-3 bg-black p-2 overflow-y-auto max-w-xl pb-20  ">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <p className="text-default-500 text-small">
@@ -324,9 +345,9 @@ const AccountSetting = () => {
             />
           </section> */}
           <Spacer y={2} />
-          <div className="flex gap-2">
+          <div>
             {/* Country */}
-            <FormField
+            {/* <FormField
               control={form.control}
               name="country"
               render={({ field }) => {
@@ -375,7 +396,106 @@ const AccountSetting = () => {
                   </Autocomplete>
                 )
               }}
+            /> */}
+            <Spacer y={2} />
+
+            <FormField
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Popover
+                      open={openCountryDropdown}
+                      onOpenChange={setOpenCountryDropdown}
+                    >
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          aria-expanded={openCountryDropdown}
+                          className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
+                        >
+                          <span>
+                            {countryValue ? (
+                              <div className="flex items-end gap-2">
+                                <span>
+                                  {
+                                    C.find(
+                                      (country) =>
+                                        lowerCase(country.name) === countryValue
+                                    )?.emoji
+                                  }
+                                </span>
+                                <span>
+                                  {
+                                    C.find(
+                                      (country) =>
+                                        lowerCase(country.name) === countryValue
+                                    )?.name
+                                  }
+                                </span>
+                              </div>
+                            ) : (
+                              <span>Select Country...</span>
+                            )}
+                          </span>
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="bg-slate-700 w-[300px] rounded-[6px] border border-[#27272a] p-0">
+                        <Command>
+                          <CommandInput placeholder="Search country..." />
+                          <CommandList>
+                            <CommandEmpty>No country found.</CommandEmpty>
+                            <CommandGroup>
+                              <ScrollArea className="h-[300px] w-full">
+                                {C.map((country) => (
+                                  <CommandItem
+                                    key={country.id}
+                                    value={lowerCase(country.name)}
+                                    onSelect={(currentValue) => {
+                                      setCountryValue(
+                                        currentValue === lowerCase(country.name)
+                                          ? currentValue
+                                          : ''
+                                      )
+                                      field.onChange(lowerCase(currentValue))
+                                      form.setValue('country', currentValue, {
+                                        shouldValidate: true
+                                      })
+                                      setOpenCountryDropdown(false)
+                                    }}
+                                    className="flex cursor-pointer items-center justify-between text-xs hover:!bg-[#27272a] hover:!text-white"
+                                  >
+                                    <div className="flex items-end gap-2">
+                                      <span>{country.emoji}</span>
+                                      <span className="">{country.name}</span>
+                                    </div>
+                                    <Check
+                                      className={cn(
+                                        'mr-2 h-4 w-4',
+                                        countryValue === lowerCase(country.name)
+                                          ? 'opacity-100'
+                                          : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                                <ScrollBar orientation="vertical" />
+                              </ScrollArea>
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
             />
+            <Spacer y={2} />
 
             <FormField
               control={form.control}

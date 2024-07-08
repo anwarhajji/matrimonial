@@ -1,9 +1,5 @@
 'use client'
 
-import states from '@/data/states.json'
-
-import { type StateProps } from '@/store/types'
-
 import { Inter } from 'next/font/google'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,18 +9,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  useFormField
 } from '@/components/ui/form'
 import { toast } from 'sonner'
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
 import {
   Select,
   SelectContent,
@@ -38,17 +27,13 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
-import { cn } from '@/lib/utils'
-import { ArrowRight } from 'lucide-react'
+
 //import { useToast } from '@/components/ui/use-toast'
 import { Step1Schema } from '@/schemas'
 //import {actionprofil} from "@/actions/action-profil-form";
-import { redirect } from 'next/navigation'
-import { Popover } from '@/components/ui/popover'
 
 //POPOVER 1
 
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import {
   Command,
   CommandEmpty,
@@ -57,16 +42,15 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command'
-import { PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-
-import { lowerCase, sentenceCase } from '@/store/utils'
-import countries from '@/data/countries.json'
-import { Check, ChevronsUpDown } from 'lucide-react'
 
 import { type CountryProps } from '@/store/types'
 import { useDropdownStore } from '@/store/dropdown' //useDropdownStore from "@/store/dropdown";
 import { actionStep1 } from '@/actions/action-step1'
 import useStepStore from '@/store/useStepStore'
+import { heightOptions, weightOptions } from '@/data/dataAuto'
+import { Autocomplete, AutocompleteItem, Avatar } from '@nextui-org/react'
+import countries, { countryProp } from '../countries'
+import { SelectValueContext } from 'react-aria-components'
 //useStepStore from '@/store/useStepStore'
 
 interface CountryDropdownProps {
@@ -89,19 +73,7 @@ const Step1: React.FC<Popup1Props> = ({ onOpenChange }) => {
     useDropdownStore()
  */
   //const SD = states as StateProps[]
-
-  const {
-    countryValue,
-    setCountryValue,
-    openCountryDropdown,
-    setOpenCountryDropdown
-  } = useDropdownStore()
-  const C = countries as CountryProps[]
-  /*  const S = SD.filter(
-    (state) => state.country_name === sentenceCase(countryValue)
-  ) */
-
-  //const { toast } = useToast()
+  const [countryValue, setCountryValue] = React.useState('')
 
   const form = useForm<Input>({
     resolver: zodResolver(Step1Schema),
@@ -143,196 +115,49 @@ const Step1: React.FC<Popup1Props> = ({ onOpenChange }) => {
           control={form.control}
           name="country"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>country</FormLabel>
-              <FormControl>
-                <Popover
-                  //onValueChange={field.onChange}
-                  //defaultValue={field.value}
-                  open={openCountryDropdown}
-                  onOpenChange={setOpenCountryDropdown}
-                >
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={openCountryDropdown}
-                      className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
-                      // disabled={disabled}
-                    >
-                      <span>
-                        {countryValue ? (
-                          <div className="flex items-end gap-2">
-                            <span>
-                              {
-                                countries.find(
-                                  (country) =>
-                                    lowerCase(country.name) === countryValue
-                                )?.emoji
-                              }
-                            </span>
-                            <span>
-                              {
-                                countries.find(
-                                  (country) =>
-                                    lowerCase(country.name) === countryValue
-                                )?.name
-                              }
-                            </span>
-                          </div>
-                        ) : (
-                          <span>Select Country...</span>
-                        )}
-                      </span>
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="bg-slate-700 w-[300px] rounded-[6px] border border-[#27272a] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search country..." />
-                      <CommandList>
-                        <CommandEmpty>No country found.</CommandEmpty>
-                        <CommandGroup>
-                          <ScrollArea className="h-[300px] w-full">
-                            {C.map((country) => (
-                              <CommandItem
-                                key={country.id}
-                                value={lowerCase(country.name)}
-                                onSelect={(currentValue) => {
-                                  setCountryValue(
-                                    currentValue === lowerCase(country.name)
-                                      ? currentValue
-                                      : ''
-                                  )
-                                  field.value = lowerCase(currentValue)
-                                  console.log(field.value)
-                                  form.setValue('country', currentValue, {
-                                    shouldValidate: true
-                                  })
-                                  form.setFocus('country')
+            <Autocomplete
+              defaultItems={countries}
+              label="Country"
+              labelPlacement="outside"
+              placeholder="Select country"
+              showScrollIndicators={false}
+              selectedKey={countryValue}
+              onSelectionChange={(value) => {
+                const selectedCountry = value?.toString()
 
-                                  setOpenCountryDropdown(false)
-                                }}
-                                className="flex cursor-pointer items-center justify-between text-xs hover:!bg-[#27272a] hover:!text-white"
-                              >
-                                <div className="flex items-end gap-2">
-                                  <span>{country.emoji}</span>
-                                  <span className="">{country.name}</span>
-                                </div>
-                                <Check
-                                  className={cn(
-                                    'mr-2 h-4 w-4',
-                                    countryValue === lowerCase(country.name)
-                                      ? 'opacity-100'
-                                      : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                            <ScrollBar orientation="vertical" />
-                          </ScrollArea>
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
+                if (selectedCountry) {
+                  setCountryValue(selectedCountry)
+                  //setSelectedValue(selectedCountry)
+                  console.log('selected country', selectedCountry)
+                  form.setValue('country', selectedCountry, {
+                    shouldValidate: true
+                  })
+                }
+                //field.onChange(value)
+                console.log('selected country', selectedCountry)
+              }}
+              {...field}
+            >
+              {(country) => (
+                <AutocompleteItem
+                  key={country.code}
+                  startContent={
+                    <Avatar
+                      alt="Country Flag"
+                      className="h-6 w-6"
+                      src={`https://flagcdn.com/${country.code.toLowerCase()}.svg`}
+                    />
+                  }
+                  value={country.name}
+                >
+                  {country.name}
+                </AutocompleteItem>
+              )}
+            </Autocomplete>
           )}
         />
+        <p className="text-default-500 text-small">Selected: {countryValue}</p>
 
-        {/* city */}
-        {/* <FormField
-          control={form.control}
-          name="city"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>city</FormLabel>
-              <FormControl>
-                <Popover
-                  open={openStateDropdown}
-                  onOpenChange={setOpenStateDropdown}
-                >
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      aria-expanded={openStateDropdown}
-                      className="w-full cursor-pointer justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11] disabled:!cursor-not-allowed disabled:!opacity-50"
-                      disabled={!countryValue || S.length === 0}
-                    >
-                      {stateValue ? (
-                        <div className="flex items-end gap-2">
-                          <span>
-                            {
-                              S.find(
-                                (state) => lowerCase(state.name) === stateValue
-                              )?.name
-                            }
-                          </span>
-                        </div>
-                      ) : (
-                        <span>Select State...</span>
-                      )}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="bg-slate-600 w-[300px] rounded-[6px] border border-[#27272a] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search state..." />
-
-                      <CommandList>
-                        <CommandEmpty>No state found.</CommandEmpty>
-                        <CommandGroup>
-                          <ScrollArea className="h-[300px] w-full">
-                            {S.map((state) => (
-                              <CommandItem
-                                key={state.id}
-                                value={lowerCase(state.name)}
-                                onSelect={(currentValue) => {
-                                  setStateValue(
-                                    currentValue === lowerCase(state.name)
-                                      ? currentValue
-                                      : ''
-                                  )
-
-                                  field.value = lowerCase(currentValue)
-                                  console.log(field.value)
-                                  form.setValue('city', currentValue, {
-                                    shouldValidate: true
-                                  })
-                                  form.setFocus('city')
-                                  console.log('city', currentValue)
-                                  setOpenStateDropdown(false)
-                                }}
-                                className="flex cursor-pointer items-center justify-between text-xs hover:!bg-[#27272a] hover:!text-white"
-                              >
-                                <div className="flex items-end gap-2">
-                                  <span className="">{state.name}</span>
-                                </div>
-                                <Check
-                                  className={cn(
-                                    'mr-2 h-4 w-4',
-                                    stateValue === lowerCase(state.name)
-                                      ? 'opacity-100'
-                                      : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                            <ScrollBar orientation="vertical" />
-                          </ScrollArea>
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        /> */}
         <FormField
           control={form.control}
           name="city"
@@ -367,19 +192,11 @@ const Step1: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  <SelectItem value="short">
-                    {' '}
-                    Below 5&apos;5&quot; (Below 165 cm)
-                  </SelectItem>
-                  <SelectItem value="average">
-                    5&apos;5&quot; - 5&apos;9&quot; (165 cm - 175 cm)
-                  </SelectItem>
-                  <SelectItem value="aboveaverage">
-                    5&apos;10&quot; - 6&apos;0&quot; (178 cm - 183 cm)
-                  </SelectItem>
-                  <SelectItem value="tall">
-                    Above 6&apos;0&quot; (Above 183 cm)
-                  </SelectItem>
+                  {heightOptions.map((range) => (
+                    <SelectItem key={range.value} value={range.value}>
+                      {range.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>
@@ -403,19 +220,11 @@ const Step1: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="underweight">
-                    Below 50 kg (Below 110 lbs)
-                  </SelectItem>
-                  <SelectItem value="normal">
-                    55 kg - 75 kg (121 lbs - 165 lbs)
-                  </SelectItem>
-                  <SelectItem value="overweight">
-                    75 kg - 86 kg (165 lbs - 189 lbs)
-                  </SelectItem>
-                  <SelectItem value="strong">
-                    Above 86 kg (Above 189 lbs)
-                  </SelectItem>
+                  {weightOptions.map((range) => (
+                    <SelectItem key={range.value} value={range.value}>
+                      {range.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>

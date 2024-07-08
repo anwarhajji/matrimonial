@@ -28,6 +28,8 @@ import Step1 from '../_forms/step1-form'
 import Step3 from '../_forms/step3-form'
 
 import Step4 from '../_forms/step4-form'
+import LocationForm from '../_forms/LocationForm'
+import ModalReview from './modal-form'
 export default function ProfilsForm(props: CardProps) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
 
@@ -39,8 +41,9 @@ export default function ProfilsForm(props: CardProps) {
       description: 'Tell us about yourself',
       isCompleted: false,
       formContent: (
-        <Step1 onOpenChange={onOpenChange} />
-
+        <LocationForm onOpenChange={onOpenChange} />
+        /*         <Step1 onOpenChange={onOpenChange} />
+         */
         /*  <>
           <Input
             label="Name"
