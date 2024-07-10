@@ -86,7 +86,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
     actionStep1(data).then(() => {
       setIsLoading(false)
     })
-    setStep(2)
+    setStep(3)
     //router.push('/step2')
 
     //alert(JSON.stringify(data, null, 4))

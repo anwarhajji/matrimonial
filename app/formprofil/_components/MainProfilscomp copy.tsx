@@ -26,16 +26,26 @@ export default function ProfilsForm(props: CardProps) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
   const { setStep, step } = useStepStore()
   const [currentState, setCurrentState] = useState(step)
-
   console.log('step avat', step)
 
   useEffect(() => {
-    let isMounted = true
+    getUserSteps().then((completed) => {
+      console.log('step', step)
+      console.log(completed)
+      if (completed !== null && completed !== undefined) {
+        setCurrentState(completed)
+        console.log('current', currentState)
 
+        if (completed > step) setStep(completed)
+      }
+    })
+  }, [getUserSteps])
+  /* useEffect(() => {
+    let isMounted = true
     const fetchUserSteps = async () => {
       try {
         const completed = await getUserSteps()
-        setCurrentState(completed ?? step)
+        setCurrentState(completed!)
         console.log('completed1', completed)
         console.log('currentState1', currentState)
 
@@ -46,19 +56,18 @@ export default function ProfilsForm(props: CardProps) {
           completed > step
         ) {
           setStep(completed)
-          console.log('completed', completed)
+          console.log('completed', step)
         }
       } catch (error) {
         console.error('Error fetching user steps:', error)
       }
     }
-
     fetchUserSteps()
-
     return () => {
       isMounted = false
     }
-  }, [step])
+  }, [step, setStep])
+  console.log('step after', step) */
 
   const items = [
     {
@@ -68,7 +77,9 @@ export default function ProfilsForm(props: CardProps) {
       description: 'creat your profile',
       isCompleted: step >= 2,
       formContent: <Popup1 onOpenChange={onOpenChange} />
+      // <LocationForm onOpenChange={onOpenChange} />
     },
+
     {
       key: 'personal-infos',
       icon: 'solar:user-bold',
@@ -111,6 +122,7 @@ export default function ProfilsForm(props: CardProps) {
     const selectedItem = items.find((item) => item.key === selectedKey)
     if (selectedItem && !selectedItem.isCompleted) {
       setOpenModalKey(selectedKey)
+
       onOpen()
     }
   }
@@ -189,10 +201,22 @@ export default function ProfilsForm(props: CardProps) {
                 </div>
               }
               title={item.title}
+              isDisabled={items.indexOf(item) + 1 > step}
             />
           )}
         </Listbox>
-
+        {/*  {items.map((item) => (
+          <ModalReview2
+            key={item.key}
+            isOpen={isOpen && openModalKey === item.key}
+            //onClose={onClose}
+            onOpenChange={onOpenChange}
+            title={item.title}
+            description={item.description}
+          >
+            {item.formContent}
+          </ModalReview2>
+        ))} */}
         {items.map((item) => (
           <ModalReview2
             key={item.key}

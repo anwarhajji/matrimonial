@@ -65,7 +65,7 @@ export const actionStep1 = async (values: z.infer<typeof Step1Schema>) => {
         id: userid
       },
       data: {
-        stepCompletion: 2
+        stepCompletion: 3
       }
     })
   ])

@@ -43,7 +43,7 @@ export const registeractionpop1 = async (
         fullname,
         gender,
         age,
-        stepCompletion: 1
+        stepCompletion: 2
       }
     })
 

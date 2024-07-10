@@ -86,7 +86,7 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
     actionStep2(data).then(() => {
       setIsLoading(false)
     })
-    setStep(3)
+    setStep(4)
 
     toast.success('Professional INFOS UPDATED SUCCESSFULLY', {
       description: ' CONTINUE WITH STEP 3'

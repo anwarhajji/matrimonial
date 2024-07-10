@@ -25,12 +25,15 @@ import { useSession } from 'next-auth/react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { registeractionpop1 } from '@/actions/ActionRegisterpop1'
 import { SuccessAlert } from './SuccessAlert'
+import useStepStore from '@/store/useStepStore'
 
 interface Popup1Props {
   onOpenChange: (open: boolean) => void
 }
 
 const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
+  const { setStep } = useStepStore()
+
   const [successSnippet2, setSuccessSnippet2] = useState(null)
   const [successSnippet, setSuccessSnippet] = useState<{
     title: string
@@ -58,7 +61,8 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
 
       if (result.success) {
         update()
-        form.reset()
+        //form.reset()
+        setStep(2)
         //setSuccessSnippet2(result.snippet)
         setSuccessSnippet(result.snippet)
         console.log('result', result.snippet)

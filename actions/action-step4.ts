@@ -42,7 +42,7 @@ export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
       }),
       db.user.update({
         where: { id: userid },
-        data: { stepCompletion: 5 }
+        data: { stepCompletion: 7 }
       })
     ])
 

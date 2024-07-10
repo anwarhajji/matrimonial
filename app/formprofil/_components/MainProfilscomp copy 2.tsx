@@ -1,6 +1,6 @@
 'use client'
 
-import type { CardProps } from '@nextui-org/react'
+import { CardProps } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import {
   Card,
@@ -20,25 +20,16 @@ import Step3 from '../_forms/step3Habits-form'
 import Step4 from '../_forms/step4Family-form'
 import useStepStore from '@/store/useStepStore'
 import { getUserSteps } from '@/actions/userdata'
-import Popup1 from '../_forms/Popup1Username'
 
 export default function ProfilsForm(props: CardProps) {
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const { setStep, step } = useStepStore()
-  const [currentState, setCurrentState] = useState(step)
-
-  console.log('step avat', step)
 
   useEffect(() => {
     let isMounted = true
-
     const fetchUserSteps = async () => {
       try {
         const completed = await getUserSteps()
-        setCurrentState(completed ?? step)
-        console.log('completed1', completed)
-        console.log('currentState1', currentState)
-
         if (
           isMounted &&
           completed !== null &&
@@ -46,34 +37,33 @@ export default function ProfilsForm(props: CardProps) {
           completed > step
         ) {
           setStep(completed)
-          console.log('completed', completed)
         }
       } catch (error) {
         console.error('Error fetching user steps:', error)
       }
     }
-
     fetchUserSteps()
-
     return () => {
       isMounted = false
     }
-  }, [step])
+  }, [step, setStep])
 
   const items = [
     {
       key: 'personal-details',
       icon: 'solar:user-bold',
       title: 'Personal Details',
-      description: 'creat your profile',
+      description: 'create your profile',
+      step: 1,
       isCompleted: step >= 2,
-      formContent: <Popup1 onOpenChange={onOpenChange} />
+      formContent: <LocationForm onOpenChange={onOpenChange} />
     },
     {
       key: 'personal-infos',
       icon: 'solar:user-bold',
       title: 'Personal infos',
       description: 'Tell us about yourself',
+      step: 2,
       isCompleted: step >= 3,
       formContent: <LocationForm onOpenChange={onOpenChange} />
     },
@@ -83,6 +73,7 @@ export default function ProfilsForm(props: CardProps) {
       title: 'Academic & Lifestyle ',
       description:
         'Tell Us About Your Education, Occupation, Income, and Lifestyle Choices',
+      step: 3,
       isCompleted: step >= 4,
       formContent: <Step2 onOpenChange={onOpenChange} />
     },
@@ -91,6 +82,7 @@ export default function ProfilsForm(props: CardProps) {
       icon: 'solar:users-group-rounded-linear',
       title: 'Personal Preferences  ',
       description: 'Share Your Travel Habits,  and Marital Status..',
+      step: 4,
       isCompleted: step >= 5,
       formContent: <Step3 onOpenChange={onOpenChange} />
     },
@@ -100,6 +92,7 @@ export default function ProfilsForm(props: CardProps) {
       title: 'Family Information',
       description:
         'Complete the Form with Additional Information and Contact Details',
+      step: 5,
       isCompleted: step >= 6,
       formContent: <Step4 onOpenChange={onOpenChange} />
     }
@@ -109,7 +102,10 @@ export default function ProfilsForm(props: CardProps) {
 
   const handleAction = (selectedKey: string) => {
     const selectedItem = items.find((item) => item.key === selectedKey)
-    if (selectedItem && !selectedItem.isCompleted) {
+    if (
+      selectedItem &&
+      (selectedItem.isCompleted || selectedItem.step === step + 1)
+    ) {
       setOpenModalKey(selectedKey)
       onOpen()
     }
@@ -153,7 +149,7 @@ export default function ProfilsForm(props: CardProps) {
               key={item.key}
               classNames={{
                 base: `w-full px-2 md:px-4 min-h-[70px] gap-3 ${
-                  items.indexOf(item) + 1 > step
+                  !item.isCompleted && item.step !== step + 1
                     ? 'opacity-30 cursor-not-allowed pointer-events-none'
                     : ''
                 }`,
@@ -192,7 +188,6 @@ export default function ProfilsForm(props: CardProps) {
             />
           )}
         </Listbox>
-
         {items.map((item) => (
           <ModalReview2
             key={item.key}

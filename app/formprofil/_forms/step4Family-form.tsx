@@ -70,7 +70,7 @@ const Step4: React.FC<Popup1Props> = ({ onOpenChange }) => {
   function onSubmit(data: Input) {
     console.log('submititttttttttttt in on sumit:    ', data)
     actionStep4(data)
-    setStep(5)
+    setStep(7)
 
     toast.success('Additional Details UPDATED SUCCESSFULLY', {
       description: ' PROFIL INFOS COMPLETED SUCCESSFULLY'

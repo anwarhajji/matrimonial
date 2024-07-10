@@ -35,7 +35,7 @@ import React from 'react'
 
 import { Step3Schema } from '@/schemas'
 //import {actionprofil} from "@/actions/action-profil-form";
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 
 //POPOVER 1
 
@@ -44,7 +44,6 @@ import useStepStore from '@/store/useStepStore'
 import { actionStep3 } from '@/actions/action-step3'
 import { toast } from 'sonner'
 import { smokingHabitsOptions } from '@/data/dataAuto'
-
 interface CountryDropdownProps {
   disabled?: boolean
 }
@@ -69,14 +68,15 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
       smokinghabits: ''
     }
   })
-
+  const router = useRouter()
   function onSubmit(data: Input) {
     console.log('submititttttttttttt in on sumit:    ', data)
     actionStep3(data)
-    setStep(4)
+    setStep(5)
     toast.success('Lifestyle Preferences UPDATED SUCCESSFULLY', {
       description: ' CONTINUE WITH STEP 4'
     })
+
     setTimeout(() => onOpenChange(false), 2000)
 
     return { success: 'success form' }
