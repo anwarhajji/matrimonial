@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils'
 import { CheckIcon } from 'lucide-react'
 import SendIvitation from '@/app/notification/_components/sendIvitation'
 import { iUserPropstatus } from '@/actions/userdata'
+import { MatchPercentageChip } from './MatchButtonPercent'
 export type PlaceListItemColor = {
   name: string
   hex: string
@@ -139,14 +140,16 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
               <p className="text-black text-tiny">Available soon.</p>
               <p className="text-black text-tiny">Get notified.</p>
             </div>
-            <Button
+            <MatchPercentageChip otherUserId={userId} />
+
+            {/*  <Button
               className="text-tiny"
               color="primary"
               radius="full"
               size="sm"
             >
               Notify Me
-            </Button>
+            </Button> */}
           </CardFooter>
         </Card>
 
