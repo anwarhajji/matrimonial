@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import UserButton from './user-button'
 import { MobileSidebar } from '@/components/mobile-sidebar'
-import Search from './search'
-import Appbar from '@/app/_(noUseOld)/(protected)/_components/Appbar'
-import SignInPanel from '@/app/_(noUseOld)/(protected)/_components/signInPanel'
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   const [hasScrolled, setHasScrolled] = useState(false)

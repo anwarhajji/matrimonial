@@ -7,11 +7,9 @@ import { getUsersWhoLikedMeButNoMatch } from '@/actions/userdata'
 import UserBox from './UserBox'
 
 const Likes = async () => {
-  const session = await auth()
+  //if (!session?.user) return <div>Not authenticated</div>
 
-  if (!session?.user) return <div>Not authenticated</div>
-
-  const items = await getUsersWhoLikedMeButNoMatch(session?.user?.id!)
+  const items = await getUsersWhoLikedMeButNoMatch()
 
   return (
     <div className="flex flex-col items-center space-y-2">

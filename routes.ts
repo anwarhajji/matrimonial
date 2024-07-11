@@ -2,6 +2,7 @@
 export const publicRoutes = [
   '/',
   '/t',
+  '/listuser',
   '/test',
   '/api/pusher',
   '/api/webhook',

@@ -20,8 +20,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { Checkbox } from 'react-aria-components'
-
+import { Checkbox } from '@/components/ui/checkbox'
 export enum FormFieldType {
   INPUT = 'input',
   TEXTAREA = 'textarea',

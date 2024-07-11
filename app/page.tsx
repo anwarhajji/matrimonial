@@ -19,8 +19,7 @@ import {
   iUserPropstatus
 } from '@/actions/userdata'
 import Navbar from '@/components/nav'
-import SignInPanel from './_(noUseOld)/(protected)/_components/signInPanel'
-
+import SignInPanel from './_components/signInPanel'
 /* const sharednavLinks = [
   { title: 'My matches', icon: <HeartIcon className="h-5 w-5" /> },
   { title: 'Favorites', icon: <StarIcon className="h-5 w-5" /> },

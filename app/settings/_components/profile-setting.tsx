@@ -17,6 +17,8 @@ import { User, UserProfile } from '@prisma/client'
 import { SettigStep1 } from '@/components/auth/setting-STEP1'
 import { getUserById, getUserProfileById } from '@/data/user'
 import { useQuery } from '@tanstack/react-query'
+import { LogoutButton } from '@/components/auth/logout-button'
+import { LogOutIcon } from 'lucide-react'
 
 const ProfileSetting = () => {
   const [profil, setProfile] = useState<UserProfile | undefined>(undefined)
@@ -112,7 +114,10 @@ const ProfileSetting = () => {
                 <p className="mt-1 text-xs text-default-400">
                   @{user?.username} {user?.fullname}
                 </p>
-              </div>
+              </div>{' '}
+              <LogoutButton>
+                <LogOutIcon />
+              </LogoutButton>
             </div>
           </CardBody>
         </Card>

@@ -1,8 +1,12 @@
 import { dehydrate } from '@tanstack/query-core'
 import { HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import Listusers from './_components/list-hydration'
-import { getUsersWithLikedAndMatchStatus } from '@/actions/userdata'
-
+import {
+  getCurrentUser,
+  getUsersWithLikedAndMatchStatus
+} from '@/actions/userdata'
+import Card from '@/components/matches/Card'
+import BannerRegister from '@/components/bannerRegister'
 export default async function Hydation() {
   const queryClient = new QueryClient()
 
@@ -11,9 +15,37 @@ export default async function Hydation() {
     queryFn: getUsersWithLikedAndMatchStatus
   })
 
+  const user = await getCurrentUser()
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <Listusers />
-    </HydrationBoundary>
+    <>
+      {!user?.id && (
+        <div className=" pb-16 md:pt-4 md:pb-32  min-h-screen px-4 mx-auto sm:px-6 space-y-80">
+          <BannerRegister />
+          <section className="px-2 sm:px-8 lg:px-32 pt-4 min-h-screen flex flex-col items-center">
+            <main className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-2 ">
+              <Card id={338} />
+              <Card id={103} />
+              <Card id={640} />
+              <Card id={134} />
+              <Card id={211} />
+              <Card id={499} />
+              <Card id={397} />
+              <Card id={351} />
+              <Card id={344} />
+              <Card id={377} />
+              <Card id={330} />
+              <Card id={443} />
+            </main>
+          </section>
+        </div>
+      )}
+
+      {user?.id !== null && user?.id !== undefined && (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Listusers />
+        </HydrationBoundary>
+      )}
+    </>
   )
 }

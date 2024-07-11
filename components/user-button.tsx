@@ -62,14 +62,10 @@ const UserButton = () => {
                 <>
                   <LogOut className="mr-2 h-4 w-4" /> out
                 </>
-                {/*               <span>Log out</span>
-Log out
- */}
               </LogoutButton>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        //</Link>
       )}
     </>
   )

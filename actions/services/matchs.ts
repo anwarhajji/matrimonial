@@ -58,8 +58,10 @@ export const likeUser = async (
   // Check if there's a reciprocal like
   const reciprocalLike = await db.like.findUnique({
     where: {
-      senderId: receiverId,
-      receiverId: senderId
+      senderId_receiverId: {
+        senderId: receiverId,
+        receiverId: senderId
+      }
     }
   })
 
