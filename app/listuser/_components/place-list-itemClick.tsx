@@ -15,10 +15,9 @@ import {
 
 import React from 'react'
 import { Image, Skeleton } from '@nextui-org/react'
-import { Icon } from '@iconify/react'
 
 import { cn } from '@/lib/utils'
-import { CheckIcon } from 'lucide-react'
+import { CheckIcon, XIcon } from 'lucide-react'
 import SendIvitation from '@/app/notification/_components/sendIvitation'
 import { iUserPropstatus } from '@/actions/userdata'
 import { MatchPercentageChip } from './MatchButtonPercent'
@@ -62,6 +61,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
       imagePath,
       isLiked,
       isMatched,
+      stepScompletion,
 
       removeWrapper,
       className,
@@ -137,8 +137,26 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
           />
           <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
             <div>
-              <p className="text-black text-tiny">Available soon.</p>
-              <p className="text-black text-tiny">Get notified.</p>
+              {age !== undefined && age > 0 ? (
+                <Chip
+                  radius="full"
+                  className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                >
+                  {age} years
+                </Chip>
+              ) : null}
+              {country !== undefined && country.length > 0 ? (
+                <Chip
+                  classNames={{
+                    base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
+                    content: 'drop-shadow shadow-black text-white'
+                  }}
+                >
+                  {country}
+                </Chip>
+              ) : null}
+              {/*   <p className="text-black text-tiny">Available soon.</p>
+              <p className="text-black text-tiny">Get notified.</p> */}
             </div>
             <MatchPercentageChip otherUserId={userId} />
 
@@ -167,7 +185,8 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
               </Skeleton>
             </div>
           ) : (
-            <>
+            <></>
+            /*  <>
               <div className="flex items-start justify-between gap-1">
                 <h3 className="text-Medium font-medium text-rose-600">
                   {name}
@@ -195,10 +214,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                   <p className="text-small text-default-500"> {country!}</p>{' '}
                 </div>
               ) : null}
-              {/* <p className="text-medium font-medium text-default-500">
-                :{age!}
-              </p> */}
-            </>
+            </> */
           )}
         </div>
 
@@ -217,7 +233,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
               {(onClose) => (
                 <ModalBody>
                   <ModalHeader className="flex-col items-center gap-1 px-0 text-center">
-                    <h1 className="text-xl">{name}</h1>
+                    <h2 className="text-xl">{name}</h2>
                     <p className="text-small font-normal text-default-500">
                       @{userName}
                     </p>
@@ -231,12 +247,12 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                       onClose()
                     }}
                   >
-                    <div className="flex justify-between">
+                    {/*  <div className="flex justify-between">
                       <Chip
                         radius="full"
                         className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
                       >
-                        AGE: {age}
+                        {age} years
                       </Chip>
                       <Chip
                         classNames={{
@@ -263,45 +279,60 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                         {maritalstatus}
                       </Chip>
                     </div>
-                    {/*  <Textarea
-                      aria-label="Feedback"
-                      minRows={8}
-                      name="feedback"
-                      placeholder="Ideas or suggestions to improve our product"
-                      variant="faded"
-                    /> */}
-                    <div className="mt-1 flex w-full items-center justify-end gap-2 px-1">
-                      {/* <p className="text-tiny text-default-400 dark:text-default-300">
-                        <Link
-                          className="text-tiny text-default-500"
-                          color="foreground"
-                          href="https://guides.github.com/features/mastering-markdown/"
-                          rel="noreferrer"
-                          target="_blank"
+ */}
+                    <div className="flex justify-between">
+                      {age !== 0 && (
+                        <Chip
+                          radius="full"
+                          className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
                         >
-                          Markdown
-                          <Icon
-                            className="[&>path]:stroke-[2px]"
-                            icon="solar:arrow-right-up-linear"
-                          />
-                        </Link>
-                        &nbsp;supported.
-                      </p> */}
+                          {age} years
+                        </Chip>
+                      )}
+                      {country.length > 0 && (
+                        <Chip
+                          classNames={{
+                            base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
+                            content: 'drop-shadow shadow-black text-white'
+                          }}
+                        >
+                          {country}
+                        </Chip>
+                      )}
+                      {occupation.length > 0 && (
+                        <Chip
+                          variant="shadow"
+                          classNames={{
+                            base: 'bg-gradient-to-br from-indigo-500 to-pink-500 border-small border-white/50 shadow-pink-500/30',
+                            content: 'drop-shadow shadow-black text-white'
+                          }}
+                        >
+                          {occupation}
+                        </Chip>
+                      )}
+                      {maritalstatus.length > 0 && (
+                        <Chip
+                          startContent={<CheckIcon size={18} />}
+                          variant="faded"
+                          color="success"
+                        >
+                          {maritalstatus}
+                        </Chip>
+                      )}
                     </div>
+
+                    <div className="flex w-full items-center justify-between px-1">
+                      {stepScompletion < 6 ? (
+                        <Chip color="warning" radius="full">
+                          incomplete profile
+                        </Chip>
+                      ) : null}
+                    </div>
+
+                    <div className="mt-1 flex w-full items-center justify-end gap-2 px-1"></div>
                     <Divider className="my-2" />
                     <div className="flex w-full items-center justify-between pb-4">
                       <div className="flex gap-2">
-                        <Button
-                          color="danger"
-                          type="button"
-                          variant="flat"
-                          onPress={onClose}
-                        >
-                          Cancel
-                        </Button>
-                        {/*  <Button color="primary" type="submit">
-                          Send invitation to {name}
-                        </Button> */}
                         <SendIvitation
                           receiverId={userId!}
                           islike={isLiked}

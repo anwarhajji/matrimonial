@@ -38,10 +38,10 @@ export default function Listusers({ className }: { className?: string }) {
     console.log('hadi list hysratation data', listusers)
   }
   return (
-    <div className="my-auto pt-4 flex h-full w-full max-w-7xl flex-col gap-2 p-4">
+    <div className="my-auto pt-8 flex h-full w-full   flex-col gap-3 p-6">
       <div
         className={cn(
-          'grid w-full flex-auto items-center grid-cols-2  gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4',
+          'grid w-full flex-auto items-center grid-cols-2  gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5',
           className
         )}
       >

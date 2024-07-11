@@ -6,7 +6,7 @@ import { generateFixedMatchPercentage } from '@/utils/matchCalculator'
 import { useCurrentUser } from '@/hooks/user-current-user'
 
 interface MatchPercentageChipProps {
-  currentUserId: string
+  // currentUserId: string
   otherUserId: string
 }
 

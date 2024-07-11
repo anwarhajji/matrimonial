@@ -2,7 +2,6 @@
 
 import { db } from '@/lib/db'
 import { auth } from '@/auth' //auth from '@/lib/auth'
-import { user } from '@nextui-org/react'
 //import { Like, Match, User } from '@prisma/client'
 export interface iUserProps {
   imagePath: string
@@ -27,16 +26,12 @@ export interface iUserPropstatus {
   gender: string
   occupation: string
   userName: string
-
+  stepScompletion: number
   userId: string
   name: string
   maritalstatus: string
   isLiked: boolean
   isMatched: boolean
-  //isInFavoriteList: boolean;
-  //favoriteId: string;
-  //homeId: string;
-  //pathName: string;
 }
 export interface iUserProps2 {
   imagePath: string
@@ -633,6 +628,7 @@ export async function getUsersWithLikedAndMatchStatus(): Promise<
         gender: true,
         name: true,
         username: true,
+        stepCompletion: true,
         userProfil: {
           select: {
             occupation: true,
@@ -677,6 +673,7 @@ export async function getUsersWithLikedAndMatchStatus(): Promise<
       gender: user.gender ?? '',
       occupation: user.userProfil[0]?.occupation ?? '',
       name: user.name ?? '',
+      stepScompletion: user.stepCompletion ?? 0,
       maritalstatus: user.userProfil[0]?.maritalstatus ?? '',
       isLiked: user.receivedLikes.length > 0,
       isMatched: matchedUserIds.has(user.id)
