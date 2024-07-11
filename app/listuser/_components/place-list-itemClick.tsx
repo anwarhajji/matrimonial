@@ -93,37 +93,6 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
         {...props}
       >
         <Card isFooterBlurred className="bg-transparent">
-          {/* <Button
-            isIconOnly
-            className="absolute right-3 top-3  bg-background/60 backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50"
-            radius="full"
-            size="sm"
-            variant="flat"
-            onPress={() => setIsLiked(!isLiked)}
-          >
-            <Icon
-              className={cn('text-default-900/50', {
-                'text-danger-400': isLiked
-              })}
-              icon="solar:heart-bold"
-              width={16}
-            />
-          </Button>
-          <Button
-            isIconOnly
-            className="absolute Left-3 top-3 z-20 bg-background/60 backdrop-blur-md backdrop-saturate-150 dark:bg-default-100/50"
-            radius="sm"
-            size="md"
-            variant="solid"
-          >
-            <Icon
-              className={cn('text-default-900/50', {
-                'text-danger-400': isLiked
-              })}
-              icon="mdi:sparkles"
-              width={32}
-            />
-          </Button> */}
           <Image
             isBlurred
             isZoomed
@@ -152,22 +121,11 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                     content: 'drop-shadow shadow-black text-white'
                   }}
                 >
-                  {country}
+                  {country.toLocaleUpperCase()}
                 </Chip>
               ) : null}
-              {/*   <p className="text-black text-tiny">Available soon.</p>
-              <p className="text-black text-tiny">Get notified.</p> */}
             </div>
             <MatchPercentageChip otherUserId={userId} />
-
-            {/*  <Button
-              className="text-tiny"
-              color="primary"
-              radius="full"
-              size="sm"
-            >
-              Notify Me
-            </Button> */}
           </CardFooter>
         </Card>
 
@@ -186,42 +144,10 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             </div>
           ) : (
             <></>
-            /*  <>
-              <div className="flex items-start justify-between gap-1">
-                <h3 className="text-Medium font-medium text-rose-600">
-                  {name}
-                </h3>
-                {age !== undefined ? (
-                  <div className="flex items-center gap-1">
-                    <Icon
-                      className="text-default-500"
-                      icon="mdi:cake-variant-outline"
-                      width={16}
-                    />
-                    <span className="text-small text-default-500">
-                      AGE :{age}
-                    </span>
-                  </div>
-                ) : null}
-              </div>
-              {country ? (
-                <div className="flex items-center gap-1">
-                  <Icon
-                    className="text-default-500"
-                    icon="mdi:city"
-                    width={16}
-                  />{' '}
-                  <p className="text-small text-default-500"> {country!}</p>{' '}
-                </div>
-              ) : null}
-            </> */
           )}
         </div>
 
         <section className="mx-auto flex w-full max-w-6xl items-center justify-center px-6 py-20 sm:py-32 lg:px-8 lg:py-40">
-          {/* <Button variant="bordered" onPress={onOpen}>
-            Give Feedback
-          </Button> */}
           <Modal
             isOpen={isOpen}
             shouldBlockScroll={false}
@@ -346,15 +272,6 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             </ModalContent>
           </Modal>
         </section>
-        {/* 
-         {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <div className="flex flex-col gap-3 text-center text-black">
-              <h2>fffffff{name}</h2>
-              <p>fffffffff{country}</p>
-            </div>
-          </Modal>
-        )}  */}
       </div>
     )
   }
