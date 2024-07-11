@@ -14,9 +14,7 @@ import { GrFormNextLink } from 'react-icons/gr'
 import VerticalCollapsibleSteps from './vertical-collapsible-steps'
 import SupportCard from './support-card'
 import { useCurrentUser } from '@/hooks/user-current-user'
-import ProfileCard from '@/components/ProfileCard'
-import Providerbutton from './_components/provider'
-import ProfileCompletionStatus from '@/components/firstpage/ProfileCard'
+
 import { getUserSteps } from '@/actions/userdata'
 import { useRouter } from 'next/navigation'
 

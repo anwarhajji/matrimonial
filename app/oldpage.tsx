@@ -1,12 +1,5 @@
 import React, { Suspense } from 'react'
-import SharedPageNav from '@/components/SharedPageNav'
-import {
-  UserGroupIcon,
-  StarIcon,
-  HandThumbUpIcon,
-  EyeSlashIcon,
-  HeartIcon
-} from '@heroicons/react/24/outline'
+
 import UserCard, { iUserProps } from '@/components/usersfiltr/UserCard'
 import { db } from '@/lib/db'
 import { SkeltonCard } from '@/components/usersfiltr/SkeletonCard'

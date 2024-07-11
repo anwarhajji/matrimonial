@@ -44,7 +44,7 @@ const useRoutes = () => {
 
       {
         label: 'Home',
-        href: '/home',
+        href: '/formprofil',
         icon: MdHomeFilled,
         active: pathname === '/home'
       }

@@ -7,6 +7,7 @@ import {
 } from '@/actions/userdata'
 import Card from '@/components/matches/Card'
 import BannerRegister from '@/components/bannerRegister'
+import { redirect } from 'next/navigation'
 export default async function Hydation() {
   const queryClient = new QueryClient()
 
@@ -17,6 +18,9 @@ export default async function Hydation() {
 
   const user = await getCurrentUser()
 
+  if (user?.stepCompletion! < 5) {
+    redirect('/formprofil')
+  }
   return (
     <>
       {!user?.id && (
