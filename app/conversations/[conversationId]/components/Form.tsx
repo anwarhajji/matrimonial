@@ -72,18 +72,22 @@ const Form = () => {
   return (
     <div
       className="
-      
-      bottom-0
-        py-4 
-        px-4 
-        bg-white 
-        border-t 
-        flex 
-        items-center 
-        gap-2 
-        lg:gap-4 
-        w-full
-      "
+    fixed
+    bottom-0
+    left-0
+    right-0
+    py-4
+    px-4
+    pb-20
+    bg-white
+    border-t
+    flex
+    items-center
+    gap-2
+    lg:gap-4
+    w-full
+    z-10 // add this to ensure it's on top of other elements
+  "
     >
       {/* <CldUploadButton
         options={{ maxFiles: 1 }}

@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   CardFooter,
+  CardHeader,
   Chip,
   Divider,
   // Link,
@@ -97,23 +98,24 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             isBlurred
             isZoomed
             alt={name!}
-            className="aspect-square min-h-[300px] h-full w-full z-10 hover:scale-110"
+            className="aspect-square min-h-[300px] max-h-[300px] h-full w-full z-10 hover:scale-110"
             isLoading={isLoading}
             src={imagePath!}
             onClick={onOpen} // For desktop
             onTouchStart={onOpen} // For mobile
             // Add the onClick event
           />
+
           <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-            <div>
-              {age !== undefined && age > 0 ? (
+            <div className="flex flex-col justify-between gap-2">
+              {/*   {age !== undefined && age > 0 ? (
                 <Chip
                   radius="full"
                   className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
                 >
                   {age} years
                 </Chip>
-              ) : null}
+              ) : null} */}
               {country !== undefined && country.length > 0 ? (
                 <Chip
                   classNames={{
@@ -159,12 +161,19 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
               {(onClose) => (
                 <ModalBody>
                   <ModalHeader className="flex-col items-center gap-1 px-0 text-center">
-                    <h2 className="text-xl">{name}</h2>
+                    {/*                     <h2 className="text-xl">{name}</h2>
+                     */}{' '}
                     <p className="text-small font-normal text-default-500">
                       @{userName}
                     </p>
                   </ModalHeader>
-                  <Image src={imagePath} alt={name} />
+                  <Image
+                    src={imagePath}
+                    alt={name}
+                    width={300}
+                    height={250}
+                    className="rounded-lg"
+                  />
 
                   <form
                     className="flex w-full flex-col gap-2"
@@ -215,16 +224,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                           {age} years
                         </Chip>
                       )}
-                      {country.length > 0 && (
-                        <Chip
-                          classNames={{
-                            base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
-                            content: 'drop-shadow shadow-black text-white'
-                          }}
-                        >
-                          {country}
-                        </Chip>
-                      )}
+
                       {occupation.length > 0 && (
                         <Chip
                           variant="shadow"
@@ -238,7 +238,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                       )}
                       {maritalstatus.length > 0 && (
                         <Chip
-                          startContent={<CheckIcon size={18} />}
+                          // startContent={<CheckIcon size={18} />}
                           variant="faded"
                           color="success"
                         >
@@ -253,6 +253,17 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                           incomplete profile
                         </Chip>
                       ) : null}
+
+                      {country.length > 0 && (
+                        <Chip
+                          classNames={{
+                            base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
+                            content: 'drop-shadow shadow-black text-white'
+                          }}
+                        >
+                          {country}
+                        </Chip>
+                      )}
                     </div>
 
                     <div className="mt-1 flex w-full items-center justify-end gap-2 px-1"></div>
