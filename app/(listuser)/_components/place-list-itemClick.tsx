@@ -108,15 +108,15 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
 
           <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
             <div className="flex flex-col justify-between gap-2">
-              {/*   {age !== undefined && age > 0 ? (
+              {age !== undefined && age > 0 ? (
                 <Chip
                   radius="full"
                   className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
                 >
                   {age} years
                 </Chip>
-              ) : null} */}
-              {country !== undefined && country.length > 0 ? (
+              ) : null}
+              {/*  {country !== undefined && country.length > 0 ? (
                 <Chip
                   classNames={{
                     base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
@@ -125,7 +125,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                 >
                   {country.toLocaleUpperCase()}
                 </Chip>
-              ) : null}
+              ) : null} */}
             </div>
             <MatchPercentageChip otherUserId={userId} />
           </CardFooter>
