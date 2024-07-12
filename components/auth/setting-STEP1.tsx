@@ -157,11 +157,12 @@ export const SettigStep1 = ({
                 const { error } = useFormField()
 
                 return (
+                  // @ts-ignore
                   <Input
-                    defaultValue={`${user.age}`}
-                    // value={`${user.age}`}
-                    //defaultValue={user.age!.toString()}
-                    type="text"
+                    //defaultValue={`${user.age}`}
+                    // value={user.age!}
+                    defaultValue={user.age?.toString()}
+                    type="number"
                     label="age"
                     disabled={isPending}
                     placeholder=" your age"
