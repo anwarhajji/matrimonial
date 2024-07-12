@@ -107,7 +107,7 @@ export default function ProfilsForm(props: CardProps) {
 
   const [openModalKey, setOpenModalKey] = useState<string | null>(null)
 
-  const handleAction = (selectedKey: string) => {
+  const handleAction = (selectedKey: any) => {
     const selectedItem = items.find((item) => item.key === selectedKey)
     if (selectedItem && !selectedItem.isCompleted) {
       setOpenModalKey(selectedKey)
@@ -158,8 +158,8 @@ export default function ProfilsForm(props: CardProps) {
                     : ''
                 }`,
                 title: 'text-medium font-medium',
-                description: 'text-small',
-                selected: item.isCompleted ? 'pointer-events-none' : ''
+                description: 'text-small'
+                //selected: item.isCompleted ? 'pointer-events-none' : ''
               }}
               description={item.description}
               endContent={

@@ -43,7 +43,12 @@ import useStepStore from '@/store/useStepStore'
 
 import { actionStep3 } from '@/actions/action-step3'
 import { toast } from 'sonner'
-import { smokingHabitsOptions } from '@/data/dataAuto'
+import {
+  drinkingHabitsOptions,
+  religionOptions,
+  smokingHabitsOptions,
+  travelPreferencesOptions
+} from '@/data/dataAuto'
 interface CountryDropdownProps {
   disabled?: boolean
 }
@@ -102,18 +107,12 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="beach">Beach</SelectItem>
-                  <SelectItem value="mountains">Mountains</SelectItem>
-                  <SelectItem value="city">City</SelectItem>
-                  <SelectItem value="countryside">Countryside</SelectItem>
-                  <SelectItem value="adventure">Adventure</SelectItem>
-                  <SelectItem value="cultural">Cultural</SelectItem>
-                  <SelectItem value="historical">Historical</SelectItem>
-                  <SelectItem value="relaxing">Relaxing</SelectItem>
-                  <SelectItem value="solo">Solo Travel</SelectItem>
-                  <SelectItem value="group">Group Travel</SelectItem>
-                </SelectContent>
+                  {travelPreferencesOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>{' '}
               </Select>
               <FormDescription>
                 chose your travel preference details{' '}
@@ -137,12 +136,11 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="nonDrinker">Non-Drinker</SelectItem>
-                  <SelectItem value="socialDrinker">Social Drinker</SelectItem>
-                  <SelectItem value="regularDrinker">
-                    Regular Drinker
-                  </SelectItem>
+                  {drinkingHabitsOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>
@@ -167,11 +165,11 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="none">No Religion</SelectItem>
-                  <SelectItem value="islam">Islam</SelectItem>
-                  <SelectItem value="practicing">Practicing Muslim</SelectItem>
-                  <SelectItem value="other">Other (Specify)</SelectItem>
+                  {religionOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>chose your religion details </FormDescription>

@@ -6,6 +6,7 @@ import { getUserByEmail, getUserById } from '@/data/user'
 import * as z from 'zod'
 import { Step4Schema } from '@/schemas'
 import { currentUser } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 
 export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
   const validatedFields = Step4Schema.safeParse(values)
@@ -47,7 +48,7 @@ export const actionStep4 = async (values: z.infer<typeof Step4Schema>) => {
     ])
 
     //permanentRedirect(`/matches`) // Navigate to the new user profile
-    //redirect(`/matches`)
+    redirect(`/`)
     return { success: true }
   } catch (error) {
     console.log(error)

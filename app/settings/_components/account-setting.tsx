@@ -48,10 +48,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { UserProfile } from '@prisma/client'
 import { getUserProfileById } from '@/data/user'
-import { useEffect } from 'react'
-import { useDebounce } from '@/hooks/use-debounce'
 import React from 'react'
-import { useCallback } from 'react'
 import {
   incomeOptions,
   maritalStatusOptions,
@@ -230,71 +227,69 @@ const AccountSetting = () => {
     longitude: string
   }
 
-  const handleReligionChange = (value: AutocompleteOption['value']) => {
+  const handleReligionChange = (value: any) => {
     if (value) {
       setReligion(value)
       form.setValue('religion', value)
     }
   }
 
-  const handleMaritalStatusChange = (value: AutocompleteOption['value']) => {
+  const handleMaritalStatusChange = (value: any) => {
     if (value) {
       setMaritalStatus(value)
       form.setValue('maritalstatus', value)
     }
   }
 
-  const handleEducationChange = (value: AutocompleteOption['value']) => {
+  const handleEducationChange = (value: any) => {
     if (value) {
       setEducation(value)
       form.setValue('education', value)
     }
   }
 
-  const handleOccupationChange = (value: AutocompleteOption['value']) => {
+  const handleOccupationChange = (value: any) => {
     if (value) {
       setOccupation(value)
       form.setValue('occupation', value)
     }
   }
 
-  const handleIncomeChange = (value: AutocompleteOption['value']) => {
+  const handleIncomeChange = (value: any) => {
     if (value) {
       setIncome(value)
       form.setValue('income', value)
     }
   }
 
-  const handleSmokingHabitsChange = (value: AutocompleteOption['value']) => {
+  const handleSmokingHabitsChange = (value: any) => {
     if (value) {
       setSmokingHabits(value)
       form.setValue('smokinghabits', value)
     }
   }
 
-  const handleDrinkingHabitsChange = (value: AutocompleteOption['value']) => {
+  const handleDrinkingHabitsChange = (value: any) => {
     if (value) {
       setDrinkingHabits(value)
       form.setValue('drinkinghabits', value)
     }
   }
 
-  const handleTravelPreferencesChange = (
-    value: AutocompleteOption['value']
-  ) => {
+  const handleTravelPreferencesChange = (value: any) => {
     if (value) {
       setTravelPreferences(value)
       form.setValue('travelpreferences', value)
     }
   }
-  const hadleWeightChange = (value: AutocompleteOption['value']) => {
+  const hadleWeightChange = (value: any) => {
     if (value) {
       setWeight(value)
       form.setValue('weight', value)
     }
   }
 
-  const hadleHeightChange = (value: AutocompleteOption['value']) => {
+  const hadleHeightChange = (value: any) => {
     if (value) {
       setHeigh(value)
       form.setValue('height', value)
@@ -404,7 +399,7 @@ const AccountSetting = () => {
                     >
                       <PopoverTrigger asChild>
                         <Button
-                          variant="outline"
+                          variant="solid"
                           role="combobox"
                           aria-expanded={openCountryDropdown}
                           className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
@@ -503,7 +498,7 @@ const AccountSetting = () => {
                     {...field}
                     label="City"
                     labelPlacement="outside"
-                    defaultValue={cityValue}
+                    defaultValue={cityValue!}
                     placeholder="Enter your city"
                     type="text"
                     autoComplete="address-level2"
