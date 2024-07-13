@@ -9,6 +9,10 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
     images: {
+
+
+      domains: ['matrimonial-seven.vercel.app'],
+
         remotePatterns: [
             
             {

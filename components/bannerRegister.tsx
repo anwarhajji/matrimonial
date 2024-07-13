@@ -32,7 +32,7 @@ export default function StickyBanner() {
             Register
           </Button>
         </NextLink>
-        <NextLink href="/auth/signin" passHref>
+        <NextLink href="/auth/login" passHref>
           <Button
             className="group relative h-9 overflow-hidden bg-transparent text-small font-normal"
             color="default"

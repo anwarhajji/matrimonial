@@ -66,9 +66,7 @@ export const Notifications = (props: CardProps) => {
             <h4 className="inline-block align-middle text-large font-medium">
               Notifications
             </h4>
-            <Chip size="sm" variant="flat">
-              12
-            </Chip>
+            <Chip size="sm" variant="flat"></Chip>
           </div>
           {/*  <Button
             className="h-8 px-3"

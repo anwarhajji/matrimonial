@@ -7,6 +7,7 @@ import { db } from '@/lib/db'
 import { getUserByEmail } from '@/data/user'
 import { generateVerificationToken } from '@/lib/tokens'
 import { sendVerificationEmail } from '@/lib/mail'
+import { redirect } from 'next/navigation'
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   // Validate fields
@@ -53,7 +54,8 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     redirect(`/auth/login`) // Redirect to the main page
   }, 3000) */
   //
-  //redirect(`/auth/login`)
+
+  redirect(`/auth/login`)
   return {
     success:
       ' REGISTRATRATION SUCCESSFUL. Confirmation email sent! CONFIRM YOUR EMAIL AND LOGIN'

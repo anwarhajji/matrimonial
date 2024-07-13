@@ -27,6 +27,7 @@ import React from 'react'
 FormError
 export const LoginFormUI = () => {
   const searchParams = useSearchParams()
+  const [isLoading, setIsLoading] = useState(false)
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'Email already in use with different provider!'
@@ -45,12 +46,22 @@ export const LoginFormUI = () => {
   })
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError('')
+    /* setError('')
     setSuccess('')
     startTransition(() => {
       login(values).then((data) => {
         setError(data?.error)
         setSuccess(data?.success)
+      })
+    }) */
+    setError('')
+    setSuccess('')
+    setIsLoading(true) // Set loading to true when submission starts
+    startTransition(() => {
+      login(values).then((data) => {
+        setError(data?.error)
+        //setSuccess(data?.success)
+        setIsLoading(false) // Set loading to false when submission completes
       })
     })
   }
@@ -144,8 +155,16 @@ export const LoginFormUI = () => {
             </div>
             <FormError message={error || urlError} />
             <FormSuccess message={success} />
-            <Button color="primary" type="submit" isDisabled={isPending}>
+            {/* <Button color="primary" type="submit" isDisabled={isPending}>
               Sign In
+            </Button> */}
+            <Button
+              color="primary"
+              type="submit"
+              isDisabled={isPending || isLoading}
+              isLoading={isLoading}
+            >
+              {isLoading ? 'Signing In...' : 'Sign In'}
             </Button>
             <Social />
           </form>
