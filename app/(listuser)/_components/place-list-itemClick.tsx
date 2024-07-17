@@ -146,7 +146,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             // scrollBehavior="inside"
             isDismissable
           >
-            <ModalContent onTouchStart={(e) => e.stopPropagation()}>
+            {/* <ModalContent onTouchStart={(e) => e.stopPropagation()}>
               {(onClose) => (
                 <>
                   <ModalHeader className="flex justify-between items-center">
@@ -160,6 +160,9 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                     <Image
                       src={imagePath}
                       alt={name}
+                      width={300}
+                      height={300}
+                      fallbackSrc="https://via.placeholder.com/300x200"
                       className="rounded-lg w-full h-auto object-cover"
                     />
 
@@ -241,7 +244,113 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
                   </ModalBody>
                 </>
               )}
+            </ModalContent> */}
+            <ModalContent onTouchStart={(e) => e.stopPropagation()}>
+              {(onClose) => (
+                <>
+                  <ModalHeader className="flex justify-between items-center">
+                    <div className="flex-col items-center gap-1 px-0 text-center">
+                      <p className="text-small font-normal text-default-500">
+                        @{userName}
+                      </p>
+                    </div>
+                  </ModalHeader>
+                  <ModalBody className="flex flex-col items-center">
+                    {' '}
+                    {/* Center content vertically */}
+                    <div className="flex justify-center">
+                      <Image
+                        src={imagePath}
+                        alt={name}
+                        width={300}
+                        height={300}
+                        fallbackSrc="https://via.placeholder.com/300x200"
+                        className="rounded-lg w-full h-auto object-cover"
+                        style={{
+                          margin: '0 auto'
+                        }} /* Center image horizontally */
+                      />
+                    </div>
+                    <form
+                      className="flex w-full flex-col gap-2 mt-4"
+                      onSubmit={(e) => {
+                        e.preventDefault()
+                        onClose()
+                      }}
+                    >
+                      <div className="flex flex-wrap gap-2 justify-between">
+                        {age !== 0 && (
+                          <Chip
+                            radius="full"
+                            className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                          >
+                            {age} years
+                          </Chip>
+                        )}
+
+                        {occupation.length > 0 && (
+                          <Chip
+                            variant="shadow"
+                            classNames={{
+                              base: 'bg-gradient-to-br from-indigo-500 to-pink-500 border-small border-white/50 shadow-pink-500/30',
+                              content: 'drop-shadow shadow-black text-white'
+                            }}
+                          >
+                            {occupation}
+                          </Chip>
+                        )}
+                        {maritalstatus.length > 0 && (
+                          <Chip variant="faded" color="success">
+                            {maritalstatus}
+                          </Chip>
+                        )}
+                      </div>
+
+                      <div className="flex w-full items-center justify-between px-1">
+                        {stepScompletion < 6 ? (
+                          <Chip color="warning" radius="full">
+                            incomplete profile
+                          </Chip>
+                        ) : null}
+
+                        {country.length > 0 && (
+                          <Chip
+                            classNames={{
+                              base: 'bg-gradient-to-br from-indigo-500 to-blue-500 border-small border-white/50 shadow-pink-500/30',
+                              content: 'drop-shadow shadow-black text-white'
+                            }}
+                          >
+                            {country}
+                          </Chip>
+                        )}
+                      </div>
+
+                      <div className="mt-1 flex w-full items-center justify-end gap-2 px-1"></div>
+                      <Divider className="my-2" />
+                      <div className="flex w-full items-center justify-between pb-4">
+                        <div className="flex gap-2">
+                          <SendIvitation
+                            receiverId={userId!}
+                            islike={isLiked}
+                            ismatch={isMatched}
+                          />
+                          <Button
+                            isIconOnly
+                            size="sm"
+                            variant="light"
+                            onPress={onClose}
+                            className="ml-20"
+                          >
+                            <XIcon size={20} />
+                          </Button>
+                        </div>
+                      </div>
+                    </form>
+                  </ModalBody>
+                </>
+              )}
             </ModalContent>
+            ;
           </Modal>
         </section>
       </div>

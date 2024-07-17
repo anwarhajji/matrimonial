@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
 import { getUserById, getUserProfileByUserId } from './user'
-import sharp from 'sharp'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 

@@ -1,10 +1,10 @@
 'use client'
 
-import { prepareAndUploadAvatar } from '@/actions/clientAvatarActions'
-import { deletOldImage } from '@/data/upload'
-import { updateUserImage } from '@/actions/images-actions'
 import FileInput from './fileUpload'
-import { Icon } from '@iconify/react'
+import sharp from 'sharp'
+
+import { deletOldImage, uploadAvatar } from '@/data/upload'
+import { PencilIcon } from '@heroicons/react/16/solid'
 import {
   Button,
   Image,
@@ -17,28 +17,20 @@ import {
 } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { updateUserImage } from '@/actions/images-actions'
+
+import { Icon } from '@iconify/react'
+import { AuploadAvatar2 } from '@/actions/upload-avatar'
+interface UploadAvatarProps {
+  userId: string
+  onUploadComplete: () => void
+}
 
 const UploadAvatar = ({ userId }: { userId: string }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [image, setImage] = useState<File>()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
-
-  const handleUpload = async () => {
-    if (!image) return
-
-    setIsSubmitting(true)
-    try {
-      const newAvatarUrl = await prepareAndUploadAvatar(image, userId)
-      await deletOldImage(userId)
-      await updateUserImage(newAvatarUrl, userId)
-      router.refresh()
-    } catch (error) {
-      console.error('Error uploading avatar:', error)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <div>
@@ -66,8 +58,32 @@ const UploadAvatar = ({ userId }: { userId: string }) => {
                   isLoading={isSubmitting}
                   color="primary"
                   onPress={async () => {
-                    await handleUpload()
+                    setIsSubmitting(true)
+                    if (!image) {
+                      onClose()
+                      return
+                    }
+                    // const session = await auth();
+                    // const uId = session?.user?.id!;
+                    console.log('uId', userId)
+
+                    // const deleturl = await deletOldImage(urlold);
+                    //console.log("deleturl after delet", deleturl);
+
+                    // const newAvatarUrl = await uploadAvatar(image, userId!)
+
+                    const newAvatarUrl = await AuploadAvatar2(image, userId!)
+
+                    const imagedelet = await deletOldImage(userId!)
+                    console.log('oldimagedelet', imagedelet)
+                    const result = await updateUserImage(newAvatarUrl, userId)
+                    console.log('result', result)
+                    //
+
+                    console.log('router refressh')
+                    setIsSubmitting(false)
                     onClose()
+                    router.refresh()
                   }}
                 >
                   Change Avatar
