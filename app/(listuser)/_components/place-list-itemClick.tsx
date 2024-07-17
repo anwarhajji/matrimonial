@@ -91,7 +91,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
         )}
         {...props}
       >
-        <Card isFooterBlurred className="bg-transparent">
+        {/*         <Card isFooterBlurred className="bg-transparent">
           <Image
             isBlurred
             isZoomed
@@ -117,6 +117,35 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             <MatchPercentageChip otherUserId={userId} />
           </CardFooter>
         </Card>
+ */}
+
+        <Card isFooterBlurred className="bg-transparent relative">
+          <div className="flex justify-center">
+            <Image
+              isBlurred
+              isZoomed
+              alt={name!}
+              className="aspect-square h-[300px] w-[300px]  z-10 hover:scale-110"
+              isLoading={isLoading}
+              src={imagePath!}
+              onClick={onOpen}
+              onTouchStart={onOpen}
+            />
+          </div>
+          <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between w-full px-4 py-2">
+            <div className="flex flex-col justify-between gap-2">
+              {age !== undefined && age > 0 && (
+                <Chip
+                  radius="full"
+                  className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+                >
+                  {age} years
+                </Chip>
+              )}
+            </div>
+            <MatchPercentageChip otherUserId={userId} />
+          </CardFooter>
+        </Card>
 
         <div className="mt-1 flex flex-col gap-2 px-1">
           {isLoading ? (
@@ -135,7 +164,6 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
             <></>
           )}
         </div>
-
         <section className="mx-auto flex w-full max-w-6xl items-center justify-center px-6 py-20 sm:py-32 lg:px-8 lg:py-40">
           <Modal
             isOpen={isOpen}
