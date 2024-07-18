@@ -110,7 +110,9 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
             name="height"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>your Height (in cm)</FormLabel>
+                {/*   <FormLabel className="text-white font-semibold dark:text-slate-300 dark:font-bold">
+                  your Height (in cm)
+                </FormLabel> */}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -120,15 +122,19 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       <SelectValue placeholder="Select the interval of height" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="bg-slate-700">
+                  <SelectContent className="bg-white dark:bg-slate-800 ">
                     {heightOptions.map((range) => (
-                      <SelectItem key={range.value} value={range.value}>
+                      <SelectItem
+                        className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                        key={range.value}
+                        value={range.value}
+                      >
                         {range.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
+                <FormDescription className="text-slate-700">
                   chose your heigh to help the algorithm find your perfect match{' '}
                 </FormDescription>
                 <FormMessage className="text-red-500" />
@@ -141,7 +147,9 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
             name="weight"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Your Weight (in kg)</FormLabel>
+                {/*                 <FormLabel className="text-white font-semibold dark:text-slate-300 dark:font-bold">
+                  Your Weight (in kg)
+                </FormLabel> */}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -151,15 +159,19 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       <SelectValue placeholder="Select the interval of weight" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="bg-slate-700">
+                  <SelectContent className="bg-white dark:bg-slate-800">
                     {weightOptions.map((range) => (
-                      <SelectItem key={range.value} value={range.value}>
+                      <SelectItem
+                        className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                        key={range.value}
+                        value={range.value}
+                      >
                         {range.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
+                <FormDescription className="text-slate-700">
                   chose your weight to help the algorithm find your perfect
                   match{' '}
                 </FormDescription>
@@ -175,7 +187,9 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
             name="education"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Education Levels</FormLabel>
+                {/*   <FormLabel className="text-white font-semibold dark:text-slate-300 dark:font-bold">
+                  Education Levels
+                </FormLabel> */}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -185,15 +199,19 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       <SelectValue placeholder="Select your education level" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="bg-slate-700">
+                  <SelectContent className="bg-white dark:bg-slate-800">
                     {educationOptions.map((range) => (
-                      <SelectItem key={range.value} value={range.value}>
+                      <SelectItem
+                        className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                        key={range.value}
+                        value={range.value}
+                      >
                         {range.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
+                <FormDescription className="text-slate-700">
                   chose your education level to help the algorithm find your
                   perfect match{' '}
                 </FormDescription>
@@ -208,25 +226,31 @@ const Step2: React.FC<Popup1Props> = ({ onOpenChange }) => {
             name="income"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Select your income level </FormLabel>
+                {/* <FormLabel className="text-white font-semibold dark:text-slate-300 dark:font-bold">
+                  Select rmyour income level
+                </FormLabel> */}
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select your education level" />
+                      <SelectValue placeholder="Select your income level" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="bg-slate-700">
+                  <SelectContent className="bg-white dark:bg-slate-800">
                     {incomeOptions.map((range) => (
-                      <SelectItem key={range.value} value={range.value}>
+                      <SelectItem
+                        className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                        key={range.value}
+                        value={range.value}
+                      >
                         {range.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>
+                <FormDescription className="text-slate-700">
                   chose your income level to help the algorithm find your
                   perfect match{' '}
                 </FormDescription>

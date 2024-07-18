@@ -112,13 +112,17 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
               <FormLabel>your occupation or work </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-white dark:bg-slate-800">
                     <SelectValue placeholder="Select your education level" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
+                <SelectContent className="bg-white dark:bg-slate-700">
                   {occupationOptions.map((range) => (
-                    <SelectItem key={range.value} value={range.value}>
+                    <SelectItem
+                      className="hover:bg-slate-300 dark:hover:bg-slate-600"
+                      key={range.value}
+                      value={range.value}
+                    >
                       {range.label}
                     </SelectItem>
                   ))}
@@ -148,7 +152,8 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       variant="solid"
                       role="combobox"
                       aria-expanded={openCountryDropdown}
-                      className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
+                      //className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
+                      className="w-full justify-between rounded-[6px] bg-white dark:bg-slate-800"
                     >
                       <span>
                         {countryValue ? (
@@ -177,7 +182,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="bg-slate-700 w-[300px] rounded-[6px] border border-[#27272a] p-0">
+                  <PopoverContent className="bg-slate-700 w-[300px] rounded-[6px]  p-0">
                     <Command>
                       <CommandInput placeholder="Search country..." />
                       <CommandList>
@@ -247,7 +252,7 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
                   placeholder="Enter your city"
                   type="text"
                   autoComplete="address-level2"
-                  className="rounded-[6px] border !border-[#27272a] !bg-[#0f0f11]"
+                  className="rounded-[6px] bg-white dark:bg-slate-800"
                 />
               </FormControl>
               <FormMessage className="text-red-500" />
@@ -263,7 +268,10 @@ const LocationForm: React.FC<Popup1Props> = ({ onOpenChange }) => {
             <FormItem>
               <FormLabel>Phone number</FormLabel>
               <FormControl>
-                <PhoneInput className="bg-slate-900" {...field} />
+                <PhoneInput
+                  className="rounded-[6px] bg-white dark:bg-slate-800"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 your phone number is confidential the others will not be able to

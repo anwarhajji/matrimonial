@@ -42,6 +42,7 @@ import { redirect } from 'next/navigation'
 import { actionStep4 } from '@/actions/action-step4'
 import useStepStore from '@/store/useStepStore'
 import { toast } from 'sonner'
+import { maritalStatusOptions, petsOptions } from '@/data/dataAuto'
 
 interface CountryDropdownProps {
   disabled?: boolean
@@ -93,19 +94,33 @@ const Step4: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="kids"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>do you have kids</FormLabel>
+              <FormLabel className="text-white">do you have kids</FormLabel>
+
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="do you have kids" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
-                  <SelectItem value="NO"> NO</SelectItem>
-                  <SelectItem value="YES">YES </SelectItem>
+                <SelectContent className="bg-white dark:bg-slate-800">
+                  <SelectItem
+                    className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                    value="NO"
+                  >
+                    {' '}
+                    NO
+                  </SelectItem>
+                  <SelectItem
+                    className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                    value="YES"
+                  >
+                    YES{' '}
+                  </SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>Select YES if you have kids</FormDescription>
+              <FormDescription className="text-black">
+                Select YES if you have kids
+              </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
@@ -116,26 +131,30 @@ const Step4: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="pets"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> do you have any pet ?</FormLabel>
+              <FormLabel className="text-white">
+                {' '}
+                do you have any pet ?
+              </FormLabel>
+
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="do you have any pet ?" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
-                  {' '}
-                  <SelectItem value="none">No, I dont have pets</SelectItem>
-                  <SelectItem value="dontlike">I dont like animals</SelectItem>
-                  <SelectItem value="dogs">Dogs</SelectItem>
-                  <SelectItem value="cats">Cats</SelectItem>
-                  <SelectItem value="birds">Birds</SelectItem>
-                  <SelectItem value="fish">Fish</SelectItem>
-                  <SelectItem value="reptiles">Reptiles</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                <SelectContent className="bg-white dark:bg-slate-800">
+                  {petsOptions.map((range) => (
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={range.value}
+                      value={range.value}
+                    >
+                      {range.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <FormDescription>chose your religion details </FormDescription>
+
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
@@ -146,26 +165,25 @@ const Step4: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="maritalstatus"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>your status MATRIMONIAL</FormLabel>
+              <FormLabel className="text-white">
+                your status MATRIMONIAL
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="your status matrimonial" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
-                  {['SINGLE', 'MARRIED', 'DIVORCED', 'WIDOWED'].map(
-                    (maritalstatus) => {
-                      return (
-                        <SelectItem
-                          value={maritalstatus.toString()}
-                          key={maritalstatus}
-                        >
-                          {maritalstatus}
-                        </SelectItem>
-                      )
-                    }
-                  )}
+                <SelectContent className="bg-white dark:bg-slate-800">
+                  {maritalStatusOptions.map((range) => (
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={range.value}
+                      value={range.value}
+                    >
+                      {range.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage className="text-red-500" />

@@ -236,6 +236,7 @@ export function PhoneInput({
         required={required}
         aria-required={required}
         {...rest}
+        className="bg-white text-black dark:text-slate-200 dark:bg-slate-800"
       />
     </div>
   )

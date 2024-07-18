@@ -4,6 +4,11 @@ export interface AutocompleteOption {
   description: string
 }
 
+export const genderOptions: AutocompleteOption[] = [
+  { label: 'woman', value: 'woman', description: 'Woman' },
+  { label: 'man', value: 'man', description: 'Man' }
+]
+
 export const weightOptions: AutocompleteOption[] = [
   { label: '40 kg', value: '40', description: '40 kg' },
   { label: '45 kg', value: '45', description: '45 kg' },
@@ -108,6 +113,54 @@ export const educationOptions: AutocompleteOption[] = [
     value: 'other',
     description: 'Another level of education not listed'
   }
+]
+export const petsOptions: AutocompleteOption[] = [
+  {
+    value: 'like_pets',
+    label: 'Like Pets',
+    description: 'Select if you like having pets in the house'
+  },
+  {
+    value: 'dislike_pets',
+    label: 'Do Not Like Pets',
+    description: 'Select if you do not like having pets in the house'
+  },
+  {
+    value: 'dog',
+    label: 'Dog',
+    description: 'Select if you have a dog as a pet'
+  },
+  {
+    value: 'cat',
+    label: 'Cat',
+    description: 'Select if you have a cat as a pet'
+  },
+  {
+    value: 'bird',
+    label: 'Bird',
+    description: 'Select if you have a bird as a pet'
+  },
+  {
+    value: 'fish',
+    label: 'Fish',
+    description: 'Select if you have fish as pets'
+  },
+  {
+    value: 'rabbit',
+    label: 'Rabbit',
+    description: 'Select if you have a rabbit as a pet'
+  },
+  {
+    value: 'hamster',
+    label: 'Hamster',
+    description: 'Select if you have a hamster as a pet'
+  },
+  {
+    value: 'turtle',
+    label: 'Turtle',
+    description: 'Select if you have a turtle as a pet'
+  }
+  // Add more pet options as needed
 ]
 
 export const occupationOptions: AutocompleteOption[] = [

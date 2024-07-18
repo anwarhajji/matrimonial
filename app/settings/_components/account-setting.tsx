@@ -296,94 +296,11 @@ const AccountSetting = () => {
     }
   }
   return (
-    <div className=" gap-3 bg-black p-2 overflow-y-auto max-w-xl pb-20  ">
+    <div className=" gap-3 p-2 overflow-y-auto max-w-xl pb-20  ">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          {/* Timezone */}
-          {/* <section>
-            <div>
-              <p className="text-base font-medium text-default-700">Timezone</p>
-              <p className="mt-1 text-sm font-normal text-default-400">
-                Set your current timezone.
-              </p>
-            </div>
-            <FormField
-              control={form.control}
-              name="weight"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <Select
-                    className="mt-2"
-                    defaultSelectedKeys={['utc-3']}
-                    {...field}
-                  >
-                    {timeZoneOptions.map((timeZoneOption) => (
-                      <SelectItem
-                        key={timeZoneOption.value}
-                        value={timeZoneOption.value}
-                      >
-                        {timeZoneOption.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                )
-              }}
-            />
-          </section> */}
           <Spacer y={2} />
           <div>
-            {/* Country */}
-            {/* <FormField
-              control={form.control}
-              name="country"
-              render={({ field }) => {
-                const { error } = useFormField()
-                return (
-                  <Autocomplete
-                    defaultItems={C}
-                    defaultSelectedKey={countryValue}
-                    label="country"
-                    labelPlacement="outside"
-                    placeholder="Select country"
-                    showScrollIndicators={false}
-                    selectedKey={countryValue}
-                    //inputValue={inputValue}
-
-                    onSelectionChange={(value1) => {
-                      const selectedCountry = value1?.toString()
-
-                      if (selectedCountry) {
-                        setCountryValue(selectedCountry)
-                        //setSelectedValue(selectedCountry)
-                        console.log('selected country', selectedCountry)
-                        form.setValue('country', selectedCountry, {
-                          shouldValidate: true
-                        })
-                      }
-                    }}
-                    {...field}
-                  >
-                    {(country) => (
-                      <AutocompleteItem
-                        key={country.iso2}
-                        startContent={
-                          <Avatar
-                            alt="Country Flag"
-                            className="h-6 w-6"
-                            src={`https://flagcdn.com/${country.iso2.toLowerCase()}.svg`}
-                          />
-                        }
-                        //textValue={profil?.country!}
-                        value={country.name}
-                      >
-                        {country.name}
-                      </AutocompleteItem>
-                    )}
-                  </Autocomplete>
-                )
-              }}
-            /> */}
             <Spacer y={2} />
 
             <FormField
@@ -402,7 +319,8 @@ const AccountSetting = () => {
                           variant="solid"
                           role="combobox"
                           aria-expanded={openCountryDropdown}
-                          className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
+                          // className="w-full justify-between rounded-[6px] border !border-[#27272a] !bg-[#0f0f11] hover:!bg-[#0f0f11] focus:!bg-[#0f0f11] focus:!outline-none focus:!ring-2 focus:!ring-[#0f0f11] focus:!ring-offset-2 focus:!ring-offset-[#0f0f11]"
+                          className="w-full justify-between rounded-[6px] border"
                         >
                           <span>
                             {countryValue ? (
@@ -503,7 +421,7 @@ const AccountSetting = () => {
                     type="text"
                     autoComplete="address-level2"
                     name="city"
-                    classNames={{
+                    /*  classNames={{
                       input: [
                         'bg-[#0f0f11]',
                         'text-white',
@@ -518,7 +436,7 @@ const AccountSetting = () => {
                         '!cursor-text',
                         'border-[#27272a]'
                       ]
-                    }}
+                    }} */
                     // You can add error handling here
                     isInvalid={!!error}
                     errorMessage={error?.message}
@@ -838,11 +756,7 @@ const AccountSetting = () => {
             }}
           />{' '}
           <Spacer y={2} />
-          <Button
-            className="mt-4 bg-default-foreground text-background"
-            size="sm"
-            type="submit"
-          >
+          <Button color="primary" type="submit" isDisabled={isPending}>
             Update Account
           </Button>
         </form>

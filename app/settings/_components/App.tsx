@@ -29,14 +29,8 @@ import TeamSetting from './team-setting'
  * ```
  */
 export default function Component() {
-  const tabTitles = [
-    'Personalized Tab 1',
-    'Personalized Tab 2',
-    'Personalized Tab 3'
-  ]
-
   return (
-    <div className="bg-black flex h-dvh w-full gap-4">
+    <div className=" flex h-dvh w-full gap-4">
       {/* Sidebar */}
       {/*  Settings Content */}
       <div className="w-full max-w-2xl flex-1 p-4">

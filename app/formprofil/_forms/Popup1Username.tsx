@@ -9,10 +9,11 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormMessage
+  FormMessage,
+  useFormField
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+//import { Input } from '@/components/ui/input'
+//import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -26,6 +27,14 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { registeractionpop1 } from '@/actions/ActionRegisterpop1'
 import { SuccessAlert } from './SuccessAlert'
 import useStepStore from '@/store/useStepStore'
+import { genderOptions } from '@/data/dataAuto'
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Button,
+  Input,
+  Spacer
+} from '@nextui-org/react'
 
 interface Popup1Props {
   onOpenChange: (open: boolean) => void
@@ -48,7 +57,7 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
     resolver: zodResolver(GoogleSchema1),
     defaultValues: {
       fullname: '',
-      age: 0,
+
       username: '',
       gender: undefined
     }
@@ -83,6 +92,7 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
       setError('An unexpected error occurred')
     }
   }
+  const [gender, setgender] = React.useState<string | null | undefined>('')
 
   return (
     <Form {...form}>
@@ -109,11 +119,12 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input
-                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  //className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  // className="rounded-[6px]  "
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -127,20 +138,31 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue
-                      className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                      //className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
                       placeholder="Select a gender"
+                      className="rounded-[6px]  "
                     />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="MEN">Men</SelectItem>
-                  <SelectItem value="WOMEN">Women</SelectItem>
+                <SelectContent className="bg-white dark:bg-black">
+                  {genderOptions.map((range) => (
+                    <SelectItem
+                      className="hover:bg-slate-300 dark:hover:bg-slate-700"
+                      key={range.value}
+                      value={range.value}
+                    >
+                      {range.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
+        {/*         <Spacer y={2} />
+         */}{' '}
+        {/* age auto complete */}
         <FormField
           control={form.control}
           name="fullname"
@@ -149,15 +171,15 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
               <FormLabel>Full Name</FormLabel>
               <FormControl>
                 <Input
-                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  // className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
-        <FormField
+        {/*  <FormField
           control={form.control}
           name="age"
           render={({ field }) => (
@@ -165,14 +187,41 @@ const Popup1: React.FC<Popup1Props> = ({ onOpenChange }) => {
               <FormLabel>Age</FormLabel>
               <FormControl>
                 <Input
-                  className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
+                  // className="text-white bg-slate-900 rounded-[6px] border !border-[#27272a] "
                   {...field}
+                  name="age"
                   type="number"
+                  placeholder="Enter your age"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="age"
+          render={({ field }) => {
+            const { error } = useFormField()
+
+            return (
+              // @ts-ignore
+              <Input
+                //defaultValue={`${user.age}`}
+                // value={user.age!}
+                // defaultValue={user.age?.toString()}
+                type="number"
+                label="Your age"
+                // disabled={isPending}
+                placeholder=" your age"
+                labelPlacement="outside"
+                //variant="bordered"
+                errorMessage={error?.message}
+                isInvalid={!!error?.message}
+                {...field}
+              />
+            )
+          }}
         />
         <Button type="submit">Submit</Button>
       </form>

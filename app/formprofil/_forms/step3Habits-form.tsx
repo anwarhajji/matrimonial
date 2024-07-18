@@ -99,22 +99,27 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="travelpreferences"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> what is your travel preference ?</FormLabel>
+              {/*               <FormLabel> what is your travel preference ?</FormLabel>
+               */}{' '}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select your travel preferences " />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
+                <SelectContent className="bg-white dark:bg-slate-800">
                   {travelPreferencesOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={option.value}
+                      value={option.value}
+                    >
                       {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>{' '}
               </Select>
-              <FormDescription>
+              <FormDescription className="text-gray-900 ">
                 chose your travel preference details{' '}
               </FormDescription>
               <FormMessage className="text-red-500" />
@@ -128,22 +133,27 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="drinkinghabits"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> do you drink ? </FormLabel>
+              {/*               <FormLabel> do you drink ? </FormLabel>
+               */}{' '}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="do you drink ?" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
+                <SelectContent className="bg-white dark:bg-slate-800">
                   {drinkingHabitsOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={option.value}
+                      value={option.value}
+                    >
                       {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <FormDescription>
+              <FormDescription className="text-gray-900 ">
                 chose do you smoke ? smoking habits{' '}
               </FormDescription>
               <FormMessage className="text-red-500" />
@@ -157,22 +167,29 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="religion"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Religion</FormLabel>
+              {/*               <FormLabel>Religion</FormLabel>
+               */}{' '}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select religion details" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
+                <SelectContent className="bg-white dark:bg-slate-800">
                   {religionOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={option.value}
+                      value={option.value}
+                    >
                       {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <FormDescription>chose your religion details </FormDescription>
+              <FormDescription ClassName="text-gray-900 ">
+                chose your religion details{' '}
+              </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
@@ -184,22 +201,27 @@ const Step3: React.FC<Popup1Props> = ({ onOpenChange }) => {
           name="smokinghabits"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> do you smoke ? </FormLabel>
+              {/*               <FormLabel> do you smoke ? </FormLabel>
+               */}{' '}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="do you smoke ?" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-slate-700">
+                <SelectContent className="bg-white dark:bg-slate-800">
                   {smokingHabitsOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem
+                      className="hover:bg-slate-500 dark:hover:bg-slate-600"
+                      key={option.value}
+                      value={option.value}
+                    >
                       {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <FormDescription>
+              <FormDescription className="text-gray-900">
                 chose do you smoke ? smoking habits{' '}
               </FormDescription>
               <FormMessage className="text-red-500" />

@@ -182,7 +182,7 @@ export default function ProfilsForm(props: CardProps) {
               startContent={
                 <div className="item-center flex rounded-medium border border-divider p-2">
                   <Icon
-                    className="text-white/60 hover:text-primary-400 "
+                    className="hover:text-primary-400 "
                     icon={item.icon}
                     width={24}
                   />

@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-
 import './globals.css'
 import { Toaster } from 'sonner'
 
@@ -14,6 +12,9 @@ import { Providers } from './providers'
 
 import Sidebar from '@/components/sidebar/Sidebar'
 import ReactQueryProvider from './providers/reactQueryProvider'
+import ThemeSwitcher from './ThemeSwitcher'
+import { ThemeProviders } from './themeProvider'
+import { ThemeSwitch } from './ThemeSwitch'
 const geist = GeistSans
 
 /* export const metadata: Metadata = {
@@ -43,16 +44,19 @@ export default async function RootLayout({
           <ToastProvider />
           <ConfettiProvder />
           <Providers>
-            {/*<GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />*/}
-
-            <Toaster position="top-center" richColors closeButton />
-            <div /* className="absolute inset-0 overflow-y-auto" */>
-              <Sidebar>
-                <div className="h-full">
-                  <ReactQueryProvider>{children}</ReactQueryProvider>
-                </div>
-              </Sidebar>
-            </div>
+            <>
+              {/*  <ThemeSwitcher /> */}
+              <ThemeSwitch />
+              {/*<GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />*/}
+              <Toaster position="top-center" richColors closeButton />
+              <div /* className="absolute inset-0 overflow-y-auto" */>
+                <Sidebar>
+                  <div className="h-full ">
+                    <ReactQueryProvider>{children}</ReactQueryProvider>
+                  </div>
+                </Sidebar>
+              </div>
+            </>
           </Providers>
         </body>
       </html>
