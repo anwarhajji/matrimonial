@@ -19,7 +19,7 @@ import { getUserById, getUserProfileById } from '@/data/user'
 import { useQuery } from '@tanstack/react-query'
 import { LogoutButton } from '@/components/auth/logout-button'
 import { LogOutIcon } from 'lucide-react'
-
+export const dynamic = 'force-dynamic'
 const ProfileSetting = () => {
   const [profil, setProfile] = useState<UserProfile | undefined>(undefined)
   const [loading, setLoading] = useState(true)
@@ -27,6 +27,9 @@ const ProfileSetting = () => {
   //const [refresh, setRefresh] = useState(prev)
   // const image = dbUser?.image!
   const dbUser = useCurrentUser()
+  if (!dbUser) {
+    return null
+  }
 
   const {
     data: userData,
