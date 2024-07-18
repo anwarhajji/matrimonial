@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.blur {
+  filter: blur(85px);
+  transition: filter 0.3s ease-in;
+}
+.blur2 {
+  filter: blur(15px);
+  transition: filter 0.3s ease-in;
+}
+
+.remove-blur {
+  filter: blur(0px);
+  transition: filter 0.3s ease-in;
+}
