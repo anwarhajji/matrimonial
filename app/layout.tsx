@@ -46,7 +46,8 @@ export default async function RootLayout({
           <Providers>
             <>
               {/*  <ThemeSwitcher /> */}
-              <ThemeSwitch />
+              {/*               <ThemeSwitch />
+               */}{' '}
               {/*<GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />*/}
               <Toaster position="top-center" richColors closeButton />
               <div /* className="absolute inset-0 overflow-y-auto" */>

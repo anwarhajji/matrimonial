@@ -11,8 +11,6 @@ import {
 import { ThemeCustomRadio } from './theme-custom-radio'
 import SwitchCell from './switch-cell'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
 
 interface AppearanceSettingCardProps {
   className?: string
@@ -24,8 +22,11 @@ const fontSizeOptions = [
   { label: 'Large', value: 'large', description: 'font size 18px' }
 ]
 
-const AppearanceSetting = () => {
-  //const [theme, setTheme] = React.useState<string>('light')
+const AppearanceSetting = React.forwardRef<
+  HTMLDivElement,
+  AppearanceSettingCardProps
+>(({ className, ...props }) => {
+  const [theme, setTheme] = React.useState<string>('light')
   const [fontSize, setFontSize] = React.useState<string>('large')
   //const [isTranslucent, setIsTranslucent] = React.useState<boolean>(false)
   // const [usePointerCursor, setUsePointerCursor] = React.useState<boolean>(false)
@@ -37,21 +38,9 @@ const AppearanceSetting = () => {
       fontSize
     })
   }
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const handleThemeChange = (themeValue: string) => {
-    setTheme(themeValue)
-  }
-
-  if (!mounted) return null
 
   return (
-    <div className="p-2">
+    <div className={cn('p-2', className)} {...props}>
       {/* Theme */}
       <div>
         <p className="text-base font-medium text-default-700">Theme</p>
@@ -60,20 +49,10 @@ const AppearanceSetting = () => {
         </p>
         {/* Theme radio group */}
         <RadioGroup className="mt-4 flex-wrap" orientation="horizontal">
-          <ThemeCustomRadio
-            value="light"
-            variant="light"
-            onChange={() => handleThemeChange('light')}
-            checked={theme === 'light'}
-          >
+          <ThemeCustomRadio value="light" variant="light">
             Light
           </ThemeCustomRadio>
-          <ThemeCustomRadio
-            value="dark"
-            variant="dark"
-            onChange={() => handleThemeChange('dark')}
-            checked={theme === 'dark'}
-          >
+          <ThemeCustomRadio value="dark" variant="dark">
             Dark
           </ThemeCustomRadio>
         </RadioGroup>
@@ -107,7 +86,7 @@ const AppearanceSetting = () => {
       <Button onClick={handleSaveSettings}>Save Settings</Button>
     </div>
   )
-}
+})
 
 AppearanceSetting.displayName = 'AppearanceSetting'
 

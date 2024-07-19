@@ -7,7 +7,8 @@ import {
   Button,
   Input,
   Spacer,
-  Textarea
+  Textarea,
+  RadioGroup
 } from '@nextui-org/react'
 import { Icon } from '@iconify/react'
 import UploadAvatar from '@/app/user/profile/_components/UploadAvatar'
@@ -19,6 +20,8 @@ import { getUserById, getUserProfileById } from '@/data/user'
 import { useQuery } from '@tanstack/react-query'
 import { LogoutButton } from '@/components/auth/logout-button'
 import { LogOutIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
+
 export const dynamic = 'force-dynamic'
 const ProfileSetting = () => {
   const [profil, setProfile] = useState<UserProfile | undefined>(undefined)
@@ -78,8 +81,10 @@ const ProfileSetting = () => {
       <div>
         <p className="text-base font-medium text-default-700">Profile</p>
         <p className="mt-1 text-sm font-normal text-default-400">
-          This displays your public profile on the site.
+          This displays your public information and profile photo, and can be
+          changed on the site.
         </p>
+
         <Card className="mt-4 bg-default-100" shadow="none">
           <CardBody>
             <div className="flex items-center gap-4">
@@ -128,6 +133,31 @@ const ProfileSetting = () => {
       {/* Title */}
       {/*  */}
       <Spacer y={2} />
+      {/*   <div>
+        <p className="text-base font-medium text-default-700">Theme</p>
+        <p className="mt-1 text-sm font-normal text-default-400">
+          Change the appearance of the web.
+        </p>
+            <RadioGroup className="mt-4 flex-wrap" orientation="horizontal">
+          <ThemeCustomRadio
+            value="light"
+            variant="light"
+            onChange={() => handleThemeChange('light')}
+            checked={theme === 'light'}
+          >
+            Light
+          </ThemeCustomRadio>
+          <ThemeCustomRadio
+            value="dark"
+            variant="dark"
+            onChange={() => handleThemeChange('dark')}
+            checked={theme === 'dark'}
+          >
+            Dark
+          </ThemeCustomRadio>
+        </RadioGroup> 
+      </div> */}
+      <Spacer y={4} />
       {/* Location */}
       <Card className="mt-1 bg-default-100 " shadow="none">
         <CardBody className="">
@@ -136,6 +166,7 @@ const ProfileSetting = () => {
           </div>
         </CardBody>
       </Card>
+
       <Spacer y={4} />
       {/* Biography */}
       {/* <Button

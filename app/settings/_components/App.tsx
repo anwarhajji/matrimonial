@@ -7,6 +7,7 @@ import AppearanceSetting from './appearance-setting'
 import AccountSetting from './account-setting'
 import BillingSetting from './billing-setting'
 import TeamSetting from './team-setting'
+import { ThemeSwitch } from '@/app/ThemeSwitch'
 
 /**
  * This example requires installing the `usehooks-ts` and `lodash` packages.
@@ -52,6 +53,7 @@ export default function Component() {
           <h1 className="text-3xl font-bold leading-9 text-default-foreground">
             Settings
           </h1>
+          <ThemeSwitch />
         </div>
         <h2 className="mt-2 text-small text-default-500">
           Customize settings, email preferences, and web appearance.
@@ -69,18 +71,20 @@ export default function Component() {
           <Tab key="profile" title="Profile" aria-label="Profile">
             <ProfileSetting />
           </Tab>
-          {/*  <Tab key="appearance" title="Appearance" aria-label="Appearance">
-            <AppearanceSetting ref="appearance" />
-          </Tab> */}
+
           <Tab key="account" title="Account" aria-label="Account">
             <AccountSetting />
           </Tab>
-          {/* <Tab key="billing" title="Billing" aria-label="Billing">
-            <BillingSetting ref="billing" />
+          {/*  <Tab key="appearance" title="Appearance" aria-label="Appearance">
+            <AppearanceSetting />
+          </Tab> */}
+          <Tab key="billing" title="Billing" aria-label="Billing">
+            <BillingSetting />
           </Tab>
+          {/* 
           <Tab key="team" title="Team" aria-label="Team">
             <TeamSetting ref="team" />
-          </Tab> */}
+          </Tab>*/}
         </Tabs>
         <Spacer y={2} />
       </div>

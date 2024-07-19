@@ -129,7 +129,7 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
               isLoading={isLoading}
               src={imagePath!}
               onClick={onOpen}
-              onTouchStart={onOpen}
+              // onTouchStart={onOpen}
             />
           </div>
           <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between w-full px-4 py-2">
