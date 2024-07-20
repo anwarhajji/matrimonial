@@ -28,8 +28,8 @@ export const SettigStep1 = ({
   const form = useForm<z.infer<typeof SettingSchema>>({
     resolver: zodResolver(SettingSchema),
     defaultValues: {
-      name: user.name!,
-      fullname: user.fullname!,
+      name: user.name! || '',
+      fullname: user.fullname! || '',
       age: user.age! || 0,
       phonenumber: Uprofil?.phonenumber!
     }

@@ -65,6 +65,7 @@ import {
 import { lowerCase, sentenceCase } from '@/store/utils'
 import { Popover } from '@/components/ui/popover'
 import { ChevronsUpDown } from 'lucide-react'
+export const dynamic = 'force-dynamic'
 
 interface AccountSettingCardProps {
   className?: string
