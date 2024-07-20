@@ -1,0 +1,71 @@
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  image          String?
+  fullname       String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  gender         String?
+  password       String?
+  age            Int?
+  profilcomplete Boolean?  @default(false)
+  username       String?   @unique
+  stepCompletion Int?      @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  sentLikes      Like[]    @relation("SentLikes")
+  receivedLikes  Like[]    @relation("ReceivedLikes")
+  matches1       Match[]   @relation("User1Matches")
+  matches2       Match[]   @relation("User2Matches")
+
+  conversationIds String[] @db.VarChar(255)
+  lastActivity    DateTime @default(now())
+
+  conversations  Conversation[] @relation("UserConversations")
+  role           UserRole       @default(USER)
+  accounts       Account[]
+  userProfil     UserProfile[]
+  seenMessageIds String[]       @db.VarChar(255)
+  seenMessages   Message[]      @relation("seenMessages")
+
+  messages Message[] @relation("sentMessages")
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id        String           @id @default(cuid())
+  paymentId String?
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  planId    String
+  plan      SubscriptionPlan @relation(fields: [planId], references: [id])
+  startDate DateTime?        @default(now())
+  endDate   DateTime?
+  price     Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([planId])
+}
+
+model SubscriptionPlan {
+  id            String         @id @default(cuid())
+  name          String
+  duration      PlanDuration
+  basePrice     Int
+  stripePriceId String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
+}
+
+enum PlanDuration {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+}

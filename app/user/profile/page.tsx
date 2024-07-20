@@ -13,7 +13,7 @@ const ProfilePage = async () => {
 
   const userSubcription = await db.subscription.findFirst({
     where: { userId: dbUser?.id! },
-    include: { plan: true },
+    //include: { plan: true },
     orderBy: { createdAt: 'desc' }
   })
 
@@ -46,7 +46,7 @@ const ProfilePage = async () => {
           <Attribute title="Properties Posted" value={1} />
         </div>
       </Card>
-      <Card className="m-4 p-4  flex flex-col gap-5">
+      {/* <Card className="m-4 p-4  flex flex-col gap-5">
         <SectionTitle title="Subscription Details" />
         {userSubcription ? (
           <div>
@@ -65,7 +65,7 @@ const ProfilePage = async () => {
         <Link href={'/user/subscription'}>
           <Button color="secondary">Purchase Your Subscription</Button>
         </Link>
-      </Card>
+      </Card> */}
     </div>
   )
 }

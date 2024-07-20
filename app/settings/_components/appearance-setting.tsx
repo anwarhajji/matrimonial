@@ -9,8 +9,7 @@ import {
   Button
 } from '@nextui-org/react'
 import { ThemeCustomRadio } from './theme-custom-radio'
-import SwitchCell from './switch-cell'
-import { cn } from '@/lib/utils'
+
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
@@ -37,8 +36,8 @@ const AppearanceSetting = () => {
       fontSize
     })
   }
-  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     setMounted(true)

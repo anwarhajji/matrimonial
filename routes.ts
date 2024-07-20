@@ -21,6 +21,7 @@ export const publicRoutes = [
   '/api/conversations/*',
   'api/conversations/${conversationId}/seen',
 
+  'api/webhooks/stripe',
   '/tutoring',
   '/courses/:courseId/info',
   '/api/pusher/auth',

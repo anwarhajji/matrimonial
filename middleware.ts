@@ -20,6 +20,11 @@ export default auth((req): any => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
   //private routes
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  const stripeWebhookPath = '/api/webhooks/stripe'
+  if (nextUrl.pathname === stripeWebhookPath) {
+    console.log('Stripe webhook route accessed:', nextUrl.pathname)
+    return null
+  }
 
   // Allow every api route
   if (isApiAuthRoute) {
