@@ -19,10 +19,6 @@ import {
 import { FrequencyEnum } from './pricing-types'
 import { frequencies, tiers } from './pricing-tiers'
 import { cn } from '@/lib/utils'
-const hrefs = {
-  yearly: 'https://example.com/yearly',
-  monthly: 'https://example.com/monthly'
-}
 
 export default function ComponentSUBSCRIPTION() {
   const [selectedFrequency, setSelectedFrequency] = React.useState(
@@ -62,7 +58,7 @@ export default function ComponentSUBSCRIPTION() {
         </h1>
         <Spacer y={4} />
         <h2 className="text-large text-default-500">
-          Discover the ideal plan, beginning at under $2 per week.
+          Discover the ideal plan, beginning at under $5 per week.
         </h2>
       </div>
       <Spacer y={8} />
@@ -83,7 +79,7 @@ export default function ComponentSUBSCRIPTION() {
             <div className="flex items-center gap-2">
               <p>Pay Yearly</p>
               <Chip color="secondary" variant="flat">
-                Save 25%
+                Save 45% off
               </Chip>
             </div>
           }
@@ -163,6 +159,7 @@ export default function ComponentSUBSCRIPTION() {
                       tier.href[selectedFrequency.key]) // Debug output
                 }
                 target="_blank"
+                isDisabled={tier.key === 'ultimate'} //disabled={tier.key === 'Ultimate'}
                 //href={hrefs[selectedFrequency.key]}
                 // variant={tier.buttonVariant}
               >

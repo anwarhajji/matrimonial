@@ -65,11 +65,7 @@ export const tiers = [
     ],
     buttonText: 'Coming Soon',
     buttonVariant: 'flat',
-    href: {
-      monthly: '#', //process.env.STRIPE_MONTHLY_PLAN_LINK#, //yearly: process.env.STRIPE_YEARLY_PLAN_LINK,
-
-      yearly: '#'
-    },
+    href: '#',
     priceSuffix: 'user'
   }
 ]

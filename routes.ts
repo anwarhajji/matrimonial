@@ -2,13 +2,8 @@
 export const publicRoutes = [
   '/',
   '/t',
-  '/listuser',
-  '/test',
   '/api/pusher',
   '/api/webhook',
-  '/coaching',
-  '/courses',
-  '/roadmap',
   '/auth/new-verification',
   '/api/uploadthing',
   '/api/conversations',
@@ -22,8 +17,6 @@ export const publicRoutes = [
   'api/conversations/${conversationId}/seen',
 
   'api/webhooks/stripe',
-  '/tutoring',
-  '/courses/:courseId/info',
   '/api/pusher/auth',
   '/api/conversations/clwtwp9v90002yactk21kb5e1'
 ]

@@ -72,8 +72,8 @@ const PlaceListItem = React.forwardRef<HTMLDivElement, PlaceListItemProps>(
   ) => {
     const [isliked, setIsLiked] = React.useState<boolean>(isLiked!)
     const [ismatched, setIsMatched] = React.useState<boolean>(isMatched)
-    console.log('isliked', isliked)
-    console.log('isliked db', isLiked)
+    /* console.log('isliked', isliked)
+    console.log('isliked db', isLiked) */
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure({
       defaultOpen: false

@@ -2,7 +2,7 @@ import './globals.css'
 import { Toaster } from 'sonner'
 
 import { SessionProvider } from 'next-auth/react'
-import { auth } from '@/auth'
+//import { auth } from '@/auth'
 import { ToastProvider } from '@/components/providers/toaster-provider'
 import { ConfettiProvder } from '@/components/providers/confetti-provider'
 import Scroll from '@/components/Scroll'
@@ -15,6 +15,8 @@ import ReactQueryProvider from './providers/reactQueryProvider'
 import ThemeSwitcher from './ThemeSwitcher'
 import { ThemeProviders } from './themeProvider'
 import { ThemeSwitch } from './ThemeSwitch'
+import { auth } from '@/auth'
+import { PremiumProvider } from '@/components/providers/PremiumProvider'
 const geist = GeistSans
 
 /* export const metadata: Metadata = {
@@ -42,6 +44,7 @@ export default async function RootLayout({
         <body className={geist.className}>
           <Scroll />
           <ToastProvider />
+          <PremiumProvider />
           <ConfettiProvder />
           <Providers>
             <>

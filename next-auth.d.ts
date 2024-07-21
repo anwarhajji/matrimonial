@@ -20,6 +20,7 @@ export type ExtendedUser = DefaultSession['user'] & {
   name: string
   stepCompletion: number
   profilcomplete: boolean
+  plan: string
 }
 
 declare module 'next-auth' {

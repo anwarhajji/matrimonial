@@ -90,8 +90,8 @@ export const {
         session.user.stepCompletion = token.stepCompletion! as number
         session.user.lastActivity = token.lasactivity as Date
         session.user.image = token.Image as string
-        session.user.plan = token.plan as string
-      }
+      } // session.user.plan = token.plan as string
+
       console.log('session1', session)
       // you can add whatever you want. it is very powerful. if lost go to callbacks lesson at the 2:50:00 mark in the course
 

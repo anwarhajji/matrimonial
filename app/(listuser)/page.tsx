@@ -8,6 +8,7 @@ import {
 import Card from '@/components/matches/Card'
 import BannerRegister from '@/components/bannerRegister'
 import { redirect } from 'next/navigation'
+import PREMIUMBanner from '@/components/bannerPremium'
 export default async function Hydation() {
   const queryClient = new QueryClient()
 
@@ -23,9 +24,10 @@ export default async function Hydation() {
   }
   return (
     <>
-      {!user?.id && (
+      {(user?.plan === 'free' || !user?.email) && (
         <div className=" pb-16 md:pt-4 md:pb-32  min-h-screen px-4 mx-auto sm:px-6 space-y-80">
-          <BannerRegister />
+          {/*           {!user?.email ? <BannerRegister /> : <PREMIUMBanner />}
+           */}{' '}
           <section className="px-2 sm:px-8 lg:px-32 pt-4 min-h-screen flex flex-col items-center">
             <main className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-2 ">
               <Card id={338} />
@@ -44,8 +46,7 @@ export default async function Hydation() {
           </section>
         </div>
       )}
-
-      {user?.id !== null && user?.id !== undefined && (
+      {user?.id !== null && user?.id !== undefined && user?.plan !== 'free' && (
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Listusers />
         </HydrationBoundary>
