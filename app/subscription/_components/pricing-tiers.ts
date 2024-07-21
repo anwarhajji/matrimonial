@@ -30,7 +30,7 @@ export const tiers = [
  */ {
     key: 'premium',
     title: 'Premium',
-    price: { yearly: '$96', monthly: '$15' },
+    price: { yearly: '$120', monthly: '$20' },
     description: 'For serious s eekers ready to find love',
     features: [
       'All Basic features',
@@ -66,9 +66,9 @@ export const tiers = [
     buttonText: 'Coming Soon',
     buttonVariant: 'flat',
     href: {
-      monthly: process.env.NEXT_PUBLIC_STRIPE_MONTHLY_PLAN_LINK, //yearly: process.env.STRIPE_YEARLY_PLAN_LINK,
+      monthly: '#', //process.env.STRIPE_MONTHLY_PLAN_LINK#, //yearly: process.env.STRIPE_YEARLY_PLAN_LINK,
 
-      yearly: process.env.NEXT_PUBLIC_STRIPE_YEARLY_PLAN_LINK
+      yearly: '#'
     },
     priceSuffix: 'user'
   }
