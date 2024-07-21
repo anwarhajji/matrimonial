@@ -93,7 +93,6 @@ export const SettigStep1 = ({
                 return (
                   <Input
                     defaultValue={user.fullname!}
-                    isRequired
                     label="fullname"
                     type="text"
                     disabled={isPending}
