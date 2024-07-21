@@ -10,7 +10,6 @@ import {
   Textarea,
   RadioGroup
 } from '@nextui-org/react'
-import { Icon } from '@iconify/react'
 import UploadAvatar from '@/app/user/profile/_components/UploadAvatar'
 import { useCurrentUser } from '@/hooks/user-current-user'
 import { useEffect, useState } from 'react'
@@ -20,7 +19,6 @@ import { getUserById, getUserProfileById } from '@/data/user'
 import { useQuery } from '@tanstack/react-query'
 import { LogoutButton } from '@/components/auth/logout-button'
 import { LogOutIcon } from 'lucide-react'
-import { useTheme } from 'next-themes'
 
 export const dynamic = 'force-dynamic'
 const ProfileSetting = () => {

@@ -2,6 +2,7 @@ import { getCurrentUser } from '@/actions/userdata'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 import SubscribeStatus from './subscribeStatus'
+import SubscriptionInfo from './subscriptionInfo'
 
 const Page = async () => {
   const user = await getCurrentUser()
@@ -17,6 +18,7 @@ const Page = async () => {
         You are on the premium plan so you can see this page
       </div>
       <SubscribeStatus />
+      <SubscriptionInfo />
     </div>
   )
 }

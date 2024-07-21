@@ -12,6 +12,8 @@ import {
 import { Icon } from '@iconify/react'
 
 import { PlanCustomRadio } from './plan-custom-radio'
+import SubscribeStatus from '@/app/premium/subscribeStatus'
+import SubscriptionInfo from '@/app/premium/subscriptionInfo'
 
 interface BillingSettingCardProps {
   className?: string
@@ -36,7 +38,7 @@ const countryOptions = [
 const BillingSetting = () => (
   <div className="p-2">
     {/* Payment Method */}
-    <div>
+    {/*  <div>
       <div className="rounded-large bg-default-100">
         <div className="flex items-center justify-between gap-2 px-4 py-3">
           <div className="flex items-center gap-3">
@@ -44,14 +46,14 @@ const BillingSetting = () => (
               className="h-6 w-6 text-default-500"
               icon="solar:card-outline"
             />
-            <div>
+             <div>
               <p className="text-sm font-medium text-default-600">
                 Payment method
               </p>
               <p className="text-xs text-default-400">
                 MasterCard credit card ending in ***3456
               </p>
-            </div>
+            </div> 
           </div>
           <Button
             className="bg-default-foreground text-background"
@@ -63,17 +65,19 @@ const BillingSetting = () => (
           </Button>
         </div>
       </div>
-    </div>
+    </div> */}
     <Spacer y={4} />
     {/* Current Plan */}
     <div>
-      <p className="text-base font-medium text-default-700">Current Plan</p>
+      {/* <p className="text-base font-medium text-default-700">Current Plan</p>
       <p className="mt-1 text-sm font-normal text-default-400">
         Your free trial ends in{' '}
         <span className="text-default-500">8 days.</span>
-      </p>
+      </p> */}
+      <SubscribeStatus />
+      <SubscriptionInfo />
       {/* Plan radio group */}
-      <RadioGroup
+      {/* <RadioGroup
         className="mt-4"
         classNames={{
           wrapper: 'gap-4 flex-row flex-wrap'
@@ -131,7 +135,7 @@ const BillingSetting = () => (
             </ul>
           </div>
         </PlanCustomRadio>
-      </RadioGroup>
+      </RadioGroup> */}
     </div>
     <Spacer y={4} />
     {/*  <div>

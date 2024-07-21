@@ -3,7 +3,7 @@
 import { getCurrentUser } from '@/actions/userdata'
 import { db } from '@/lib/db'
 
-export async function isUserSubscribed() {
+export async function IsUserSubscribed() {
   const user = await getCurrentUser()
 
   if (!user) return { success: false }
