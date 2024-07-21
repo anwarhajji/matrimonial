@@ -14,6 +14,7 @@ import { Icon } from '@iconify/react'
 import { PlanCustomRadio } from './plan-custom-radio'
 import SubscribeStatus from '@/app/premium/subscribeStatus'
 import SubscriptionInfo from '@/app/premium/subscriptionInfo'
+import ComponentSUBSCRIPTION from '@/app/subscription/_components/App'
 
 interface BillingSettingCardProps {
   className?: string
@@ -171,9 +172,10 @@ const BillingSetting = () => (
         ))}
       </Select>
     </div>*/}
-    <Button className="mt-5 bg-default-foreground text-background" size="sm">
+
+    {/* <Button className="mt-5 bg-default-foreground text-background" size="sm">
       Save
-    </Button>
+    </Button> */}
   </div>
 )
 

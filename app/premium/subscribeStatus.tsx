@@ -18,7 +18,6 @@ const SubscribeStatus = () => {
         <>
           {' '}
           <div> STRIPE PORTAL : </div>
-          <div> ------------------ </div>
           <Link
             rel="noreferrer noopener"
             href={process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL! || ''}
@@ -33,7 +32,6 @@ const SubscribeStatus = () => {
           </Link>
         </>
       )}
-      {isSubscribed && ''}
     </div>
   )
 }
