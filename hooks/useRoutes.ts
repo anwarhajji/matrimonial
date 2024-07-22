@@ -23,11 +23,11 @@ const useRoutes = () => {
       },
       {
         label: 'Chat',
-        href: '/users',
+        href: '/conversations',
         icon: BiMessageSquareDetail,
-        active: pathname === '/users'
+        //active: pathname === '/conversations'
 
-        //active: pathname === '/conversations' || !!conversationId
+        active: pathname === '/conversations' || !!conversationId
       },
 
       /* {
@@ -39,7 +39,7 @@ const useRoutes = () => {
       {
         label: 'My Activity',
         onClick: () => void 0,
-        href: 'notification',
+        href: '/notification',
         icon: BsPostcardHeartFill,
         active: pathname === '/notification'
       },
