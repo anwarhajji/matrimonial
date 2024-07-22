@@ -44,7 +44,6 @@ export default async function RootLayout({
         <body className={geist.className}>
           <Scroll />
           <ToastProvider />
-          <PremiumProvider />
           <ConfettiProvder />
           <Providers>
             <>
