@@ -1,7 +1,7 @@
 // Public Routes
 export const publicRoutes = [
   '/',
-  '/t',
+  '/landing',
   '/api/pusher',
   '/api/webhook',
   '/auth/new-verification',

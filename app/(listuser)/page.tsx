@@ -19,17 +19,20 @@ export default async function Hydation() {
   })
 
   const user = await getCurrentUser()
-
-  if (user?.stepCompletion! < 5) {
+  if (!user?.email) {
+    redirect('/landing')
+  }
+  if (user?.email && user?.stepCompletion! < 5) {
     redirect('/formprofil')
   }
+
   return (
     <>
-      {(user?.plan === 'free' || !user?.email) && (
+      {user?.plan === 'free' && (
         <div className=" pb-16 md:pt-4 md:pb-32  min-h-screen px-4 mx-auto sm:px-6 space-y-80">
-          {/*           {!user?.email ? <BannerRegister /> : <PREMIUMBanner />}
+          {/*           {!user?.email ? <BannerRegister /> : } <PremiumProvider />
            */}{' '}
-          <PremiumProvider />
+          <PREMIUMBanner />
           <section className="px-2 sm:px-8 lg:px-32 pt-4 min-h-screen flex flex-col items-center">
             <main className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-2 ">
               <Card id={338} />
