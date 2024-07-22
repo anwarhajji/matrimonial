@@ -9,6 +9,6 @@ export const PremiumProvider = () => {
   return !user?.email ? (
     <BannerRegister />
   ) : (
-    user?.plan === 'free' && <PREMIUMBanner />
+    user?.plan === 'free' && user?.stepCompletion >= 6 && <PREMIUMBanner />
   )
 }
